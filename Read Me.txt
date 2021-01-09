@@ -1,0 +1,9 @@
+1. Move the SFML-2.5.1 folder to your C:\\ drive path.
+2. Add this "C:\SFML-2.5.1\bin" in your system veriable.
+3. Open CodeBlocks:
+	>> File
+	>> Open
+	>> Go to "Game Project with SFML" folder and open "Game Project with SFML.cbp" file.
+	>> Build and Run 
+	>> Change the main.cpp as your own code.
+	>> Enjoy SFML
