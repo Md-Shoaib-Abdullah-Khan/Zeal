@@ -440,3 +440,32 @@
 	"animation.h"
 	<iostream>
 
+1610103461 source:g:\unsolved ru\game\zeal code\game project with sfml\player.cpp
+	"player.h"
+	<SFML/Graphics.hpp>
+	"Animation.h"
+	"animation.h"
+	<iostream>
+
+1610100053 g:\unsolved ru\game\zeal code\game project with sfml\player.h
+	<SFML/Graphics.hpp>
+	"Animation.h"
+	"animation.h"
+	<iostream>
+
+1610100053 g:\unsolved ru\game\zeal code\game project with sfml\animation.h
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1610226613 source:g:\unsolved ru\game\zeal code\game project with sfml\animation.cpp
+	"animation.h"
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1610404756 source:g:\unsolved ru\game\zeal code\game project with sfml\main.cpp
+	<SFML/Graphics.hpp>
+	"Animation.h"
+	"animation.h"
+	"player.h"
+	<iostream>
+

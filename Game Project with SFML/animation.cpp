@@ -13,9 +13,8 @@ Animation::Animation(Texture* texture,Vector2u imagecount, float switchtime)
     uvRect.height= texture->getSize().y/float(imagecount.y);
 }
 
-void Animation::update(int row, float deltatime,bool faceright)
+void Animation::update( int row,float deltatime,bool faceright)
 {
-    currentimage.y=row;
     totaltime+=deltatime;
 
     if(totaltime>=switchtime)
@@ -30,16 +29,6 @@ void Animation::update(int row, float deltatime,bool faceright)
 
     }
 
-    uvRect.top = currentimage.y* uvRect.height;
-   if(faceright)
-   {
-        uvRect.left = currentimage.x* uvRect.width;
-        uvRect.width=abs(uvRect.width);
-   }
-   else
-   {
-       uvRect.left = (currentimage.x+1)*abs( uvRect.width);
-       uvRect.width=-abs(uvRect.width);
-   }
+
 
 }
