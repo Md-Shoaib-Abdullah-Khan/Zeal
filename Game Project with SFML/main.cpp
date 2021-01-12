@@ -3,23 +3,65 @@
 #include "animation.h"
 #include "player.h"
 #include<iostream>
+#include<vector>
 using namespace sf;
+using namespace std;
 int main()
 {
+    vector< pair <double,double>>bullet;
+    vector<bool>bulletface;
     RenderWindow window(sf::VideoMode(1500, 900), "SFML works!");
+    RectangleShape body5(Vector2f(130.0f,130.0f));
     RectangleShape body2(Vector2f(150.0f,150.0f));
     RectangleShape body1(Vector2f(150.0f,150.0f));
     RectangleShape body0(Vector2f(150.0f,150.0f));
     RectangleShape body3(Vector2f(150.0f,150.0f));
     RectangleShape body(Vector2f(150.0f,150.0f));
 
-    Texture playertexture3[10],playertexture1[10],playertexture2[10],playertexture4[10],ex,ex1;
+    Texture playertexture3[10],playertexture1[10],playertexture2[10],playertexture4[10],playertexture5[10],playertexture6[10],playertexture7[10],ex,ex1,bullet1,bullet2;
 
     Sprite sprite,sprite1;
+    RectangleShape bulletsprite1(Vector2f(50.0f,50.0f));
+    RectangleShape bulletsprite2(Vector2f(50.0f,50.0f));
+    bullet1.loadFromFile("bullet/1.png");
+    bullet2.loadFromFile("bullet/2.png");
     ex.loadFromFile("an/bk.png");
     ex1.loadFromFile("an/bk1.png");
     sprite.setTexture(ex);
     sprite1.setTexture(ex1);
+
+    playertexture7[0].loadFromFile("1/Slideb__000.png");
+    playertexture7[1].loadFromFile("1/Slideb__001.png");
+    playertexture7[2].loadFromFile("1/Slideb__002.png");
+    playertexture7[3].loadFromFile("1/Slideb__003.png");
+    playertexture7[4].loadFromFile("1/Slideb__004.png");
+    playertexture7[5].loadFromFile("1/Slideb__005.png");
+    playertexture7[6].loadFromFile("1/Slideb__006.png");
+    playertexture7[7].loadFromFile("1/Slideb__007.png");
+    playertexture7[8].loadFromFile("1/Slideb__008.png");
+    playertexture7[9].loadFromFile("1/Slideb__009.png");
+
+    playertexture6[0].loadFromFile("1/Slide__000.png");
+    playertexture6[1].loadFromFile("1/Slide__001.png");
+    playertexture6[2].loadFromFile("1/Slide__002.png");
+    playertexture6[3].loadFromFile("1/Slide__003.png");
+    playertexture6[4].loadFromFile("1/Slide__004.png");
+    playertexture6[5].loadFromFile("1/Slide__005.png");
+    playertexture6[6].loadFromFile("1/Slide__006.png");
+    playertexture6[7].loadFromFile("1/Slide__007.png");
+    playertexture6[8].loadFromFile("1/Slide__008.png");
+    playertexture6[9].loadFromFile("1/Slide__009.png");
+
+    playertexture5[0].loadFromFile("1/Jumpb__000.png");
+    playertexture5[1].loadFromFile("1/Jumpb__001.png");
+    playertexture5[2].loadFromFile("1/Jumpb__002.png");
+    playertexture5[3].loadFromFile("1/Jumpb__003.png");
+    playertexture5[4].loadFromFile("1/Jumpb__004.png");
+    playertexture5[5].loadFromFile("1/Jumpb__005.png");
+    playertexture5[6].loadFromFile("1/Jumpb__006.png");
+    playertexture5[7].loadFromFile("1/Jumpb__007.png");
+    playertexture5[8].loadFromFile("1/Jumpb__008.png");
+    playertexture5[9].loadFromFile("1/Jumpb__009.png");
 
     playertexture4[0].loadFromFile("1/Jump__000.png");
     playertexture4[1].loadFromFile("1/Jump__001.png");
@@ -66,8 +108,9 @@ int main()
     playertexture1[9].loadFromFile("1/Idle__009.png");
 
 
-    int i=0,pos=0,jump=0;
-    double time=0,y=660.0,jumptimer=0.0;
+    int i=0,pos=0,jump=0,slide=0;
+    double time=0,y=660.0,jumptimer=0.0,slidetimer=0.0;
+    bool faceright=true;
     Vector2f movement(500.0f,0.0f);
     float deltatime=0.0f;
     Clock clock;
@@ -91,71 +134,108 @@ int main()
                 }
 
             }
+            if(event.type == Event::MouseButtonPressed && event.key.code == Mouse::Left)
+            {
+            if(faceright)
+            {
+                bullet.push_back(make_pair(800.0,y+50));
+                bulletface.push_back(true);
+            }
+            else
+            {
+                bullet.push_back(make_pair(680.0,y+50));
+                bulletface.push_back(false);
+            }
+            }
         }
+
+
         ex.setRepeated(true);
         ex1.setRepeated(true);
         body.setPosition(300.0f,300.0f);
         sprite.setPosition(0.0f,100.0f);
         sprite1.setPosition(0.0f,0.0f);
-       // sprite.setSize(Vector2f(200.0f,150.0f));
 
-        float speed=100.0;
+        float speed=200.0;
         pos=0;
     if(Keyboard::isKeyPressed(Keyboard::A))
     {
         movement.x-=speed*deltatime;
         pos=1;
+        faceright=false;
     }
     if(Keyboard::isKeyPressed(Keyboard::D))
     {
         movement.x+=speed*deltatime;
         pos=2;
+        faceright=true;
     }
-    if(Keyboard::isKeyPressed(Keyboard::Space))
+    if(Keyboard::isKeyPressed(Keyboard::Space)||jump!=0)
     {
-        jump=1;
-        jumptimer=1.0;
-
+        if(jump==0){jump=1;
+        jumptimer=1.0;}
+        pos=3;
+    }
+    if(Keyboard::isKeyPressed(Keyboard::S)||slide!=0)
+    {
+        if(slide==0){slide=1;
+        slidetimer=1.0;}
+        pos=4;
     }
 
 
        if(pos==2)
        {body2.setTexture(&playertexture3[i]);
-       //body2.setPosition((movement.x),250.0f);
        }
        else if(pos==1)
        {body1.setTexture(&playertexture2[i]);
-       //body1.setPosition((movement.x),250.0f);
        }
        else if(pos==0)
        {body0.setTexture(&playertexture1[i]);
-        //body0.setPosition((movement.x),250.0f);
        }
        else if(pos==3)
-       {body3.setTexture(&playertexture4[i]);
-       // body3.setPosition((movement.x),250.0f);
+       {if(faceright)body3.setTexture(&playertexture4[i]);
+       else body3.setTexture(&playertexture5[i]);
        }
-        if(i==9){i=0;}
+       else if(pos==4)
+       {if(faceright)body5.setTexture(&playertexture6[i]);
+       else body5.setTexture(&playertexture7[i]);
+       }
+        if(i>=9){i=0;}
         time+=deltatime;
         if(time>0.1)
         {i++;
         time=0.0;
-
+        }
 
          sprite.setTextureRect(IntRect(movement.x,0,1500+movement.x,1000));
          sprite1.setTextureRect(IntRect(movement.x,0,1500+movement.x,1000));
+
+         bulletsprite1.setTexture(&bullet1);
+         bulletsprite2.setTexture(&bullet2);
 
          if(movement.x>=1000){movement.x=0.0f;}
         else if(movement.x)
 
         if(jump)
-        {jumptimer-=.1;
-            if(jumptimer>=0.5){y-=30;}
-            else{y+=30;}
+        {jumptimer-=deltatime;
+            if(jumptimer>=0.5){y-=deltatime*(speed+200.0);}
+            else{y+=deltatime*(speed+200.0);}
             if(jumptimer<=0.0)
                 {
                     y=660.0;
                     jump=0;
+                    jumptimer=0.0;
+            }
+        }
+        if(slide)
+        {slidetimer-=deltatime;
+
+            if(slidetimer<=0.0)
+                {
+                    y=660.0;
+                    slide=0;
+                    slidetimer=0.0;
             }
         }
 
@@ -164,19 +244,46 @@ int main()
       body1.setPosition(700.0f,y);
        body2.setPosition(700.0f,y);
         body3.setPosition(700.0f,y);
+        body5.setPosition(700.0f,y+50);
 
 
-        std::cout<<movement.x<<" "<<deltatime<<std::endl;
-        }
+        std::cout<<time<<" "<<i<<std::endl;
+
+
 
 
         window.clear(Color:: White);
     window.draw(sprite1);
         window.draw(sprite);
+        if(!bullet.empty())
+        {
+            for(int j=0;j<bullet.size();j++)
+            {
+                if(bulletface[j])bullet[j].first+=2;
+                else bullet[j].first-=2;
+                if(bullet[j].first>=1500.0&&bullet[j].first>=0.0){continue;}
 
-        if(pos==0)window.draw(body0);
-        else if(pos==1)window.draw(body1);
-        else if(pos==2)window.draw(body2);
+                if(bulletface[j])
+                    {
+                        bulletsprite1.setPosition(Vector2f(bullet[j].first,bullet[j].second));
+                        //bulletsprite1.move(Vector2f(2.0,0.0));
+                        window.draw(bulletsprite1);
+                    }
+                else
+                {
+                        bulletsprite2.setPosition(Vector2f(bullet[j].first,bullet[j].second));
+                        //bulletsprite2.move(Vector2f(-2.0,0.0));
+                        window.draw(bulletsprite2);
+                }
+
+            }
+        }
+
+        if(pos==0&&jump==0)window.draw(body0);
+        else if(pos==1&&jump==0&&slide==0)window.draw(body1);
+        else if(pos==2&&jump==0&&slide==0)window.draw(body2);
+        else if(pos==3&&jump!=0&&slide==0)window.draw(body3);
+        else if(pos==4&&jump==0&&slide!=0)window.draw(body5);
         window.display();
     }
 
