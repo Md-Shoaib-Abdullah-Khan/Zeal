@@ -10,15 +10,40 @@ int main()
 {
     vector< pair <double,double>>bullet;
     vector<bool>bulletface;
+
+    vector< pair <double,double>>enemy;
+    vector<bool>enemyon;
+
+    enemy.push_back(make_pair(1500.0,3.0));
+    enemyon.push_back(false);
+    enemy.push_back(make_pair(1500.0,4.5));
+    enemyon.push_back(false);
+    enemy.push_back(make_pair(1500.0,4.6));
+    enemyon.push_back(false);
+    enemy.push_back(make_pair(1500.0,5.0));
+    enemyon.push_back(false);
+    enemy.push_back(make_pair(1500.0,5.5));
+    enemyon.push_back(false);
+    enemy.push_back(make_pair(1500.0,5.7));
+    enemyon.push_back(false);
+    enemy.push_back(make_pair(1500.0,6.5));
+    enemyon.push_back(false);
+    enemy.push_back(make_pair(1500.0,6.9));
+    enemyon.push_back(false);
+
     RenderWindow window(sf::VideoMode(1500, 900), "SFML works!");
+    RectangleShape body6(Vector2f(150.0f,150.0f));
     RectangleShape body5(Vector2f(130.0f,130.0f));
     RectangleShape body2(Vector2f(150.0f,150.0f));
     RectangleShape body1(Vector2f(150.0f,150.0f));
     RectangleShape body0(Vector2f(150.0f,150.0f));
     RectangleShape body3(Vector2f(150.0f,150.0f));
     RectangleShape body(Vector2f(150.0f,150.0f));
+     RectangleShape collisionbody(Vector2f(150.0f,150.0f));
 
-    Texture playertexture3[10],playertexture1[10],playertexture2[10],playertexture4[10],playertexture5[10],playertexture6[10],playertexture7[10],ex,ex1,bullet1,bullet2;
+    Texture playertexture3[10],playertexture1[10],playertexture2[10],playertexture4[10],playertexture5[10],playertexture6[10],playertexture7[10],playertexture8[9],ex,ex1,bullet1,bullet2,collision;
+
+    collision.loadFromFile("collision.png");
 
     Sprite sprite,sprite1;
     RectangleShape bulletsprite1(Vector2f(50.0f,50.0f));
@@ -29,6 +54,17 @@ int main()
     ex1.loadFromFile("an/bk1.png");
     sprite.setTexture(ex);
     sprite1.setTexture(ex1);
+
+    playertexture8[0].loadFromFile("enemy/WALK_000.png");
+    playertexture8[1].loadFromFile("enemy/WALK_001.png");
+    playertexture8[2].loadFromFile("enemy/WALK_002.png");
+    playertexture8[3].loadFromFile("enemy/WALK_003.png");
+    playertexture8[4].loadFromFile("enemy/WALK_004.png");
+    playertexture8[5].loadFromFile("enemy/WALK_005.png");
+    playertexture8[6].loadFromFile("enemy/WALK_006.png");
+    playertexture8[7].loadFromFile("enemy/WALK_007.png");
+    playertexture8[8].loadFromFile("enemy/WALK_008.png");
+
 
     playertexture7[0].loadFromFile("1/Slideb__000.png");
     playertexture7[1].loadFromFile("1/Slideb__001.png");
@@ -109,8 +145,8 @@ int main()
 
 
     int i=0,pos=0,jump=0,slide=0;
-    double time=0,y=660.0,jumptimer=0.0,slidetimer=0.0;
-    bool faceright=true;
+    double time=0,y=660.0,jumptimer=0.0,slidetimer=0.0,stepcount=0.0,collisiontime=0.0;
+    bool faceright=true,collisionbool=false;
     Vector2f movement(500.0f,0.0f);
     float deltatime=0.0f;
     Clock clock;
@@ -149,9 +185,13 @@ int main()
             }
         }
 
+        //Background:
+
 
         ex.setRepeated(true);
         ex1.setRepeated(true);
+
+
         body.setPosition(300.0f,300.0f);
         sprite.setPosition(0.0f,100.0f);
         sprite1.setPosition(0.0f,0.0f);
@@ -163,12 +203,14 @@ int main()
         movement.x-=speed*deltatime;
         pos=1;
         faceright=false;
+        stepcount-=deltatime;
     }
     if(Keyboard::isKeyPressed(Keyboard::D))
     {
         movement.x+=speed*deltatime;
         pos=2;
         faceright=true;
+        stepcount+=deltatime;
     }
     if(Keyboard::isKeyPressed(Keyboard::Space)||jump!=0)
     {
@@ -201,6 +243,8 @@ int main()
        {if(faceright)body5.setTexture(&playertexture6[i]);
        else body5.setTexture(&playertexture7[i]);
        }
+
+
         if(i>=9){i=0;}
         time+=deltatime;
         if(time>0.1)
@@ -240,14 +284,34 @@ int main()
         }
 
 
-         body0.setPosition(700.0f,y);
-      body1.setPosition(700.0f,y);
-       body2.setPosition(700.0f,y);
+        body0.setPosition(700.0f,y);
+        body1.setPosition(700.0f,y);
+        body2.setPosition(700.0f,y);
         body3.setPosition(700.0f,y);
         body5.setPosition(700.0f,y+50);
 
 
-        std::cout<<time<<" "<<i<<std::endl;
+        std::cout<<time<<" "<<stepcount<<std::endl;
+
+        collisionbody.setTexture(&collision);
+
+        for(int j=0;j<bullet.size();j++)
+        {
+            for(int k=0;k<enemy.size();k++)
+            {
+                if((bullet[j].first>=enemy[k].first-10&&bullet[j].first<=enemy[k].first+10)&&(bullet[j].second>=650.0&&bullet[j].second<=730.0))
+                   {
+                collisionbody.setPosition(bullet[j].first,bullet[j].second);
+                collisionbool=true;
+                collisiontime=.5;
+                      enemy.erase(enemy.begin()+k);
+                enemyon.erase(enemyon.begin()+k);
+                    bullet.erase(bullet.begin()+j);
+                bulletface.erase(bulletface.begin()+j);
+
+                   }
+            }
+        }
 
 
 
@@ -266,17 +330,47 @@ int main()
                 if(bulletface[j])
                     {
                         bulletsprite1.setPosition(Vector2f(bullet[j].first,bullet[j].second));
-                        //bulletsprite1.move(Vector2f(2.0,0.0));
                         window.draw(bulletsprite1);
                     }
                 else
                 {
                         bulletsprite2.setPosition(Vector2f(bullet[j].first,bullet[j].second));
-                        //bulletsprite2.move(Vector2f(-2.0,0.0));
                         window.draw(bulletsprite2);
                 }
 
             }
+        }
+        if(!enemy.empty())
+        {
+            if(i!=9)body6.setTexture(&playertexture8[i]);
+            for(int j=0;j<enemy.size();j++)
+            {
+                if(stepcount>=enemy[j].second){enemyon[j]=true;}
+
+                if(enemyon[j])
+                {
+                    enemy[j].first-=.5;
+                    if(pos==1){enemy[j].first+=.1;}
+                    if(pos==2){enemy[j].first-=.1;}
+                }
+                if(enemy[j].first<=0.0)
+                {
+                enemy.erase(enemy.begin());
+                enemyon.erase(enemyon.begin());
+
+                }
+
+                if(enemyon[j])
+                    {
+                        body6.setPosition(Vector2f(enemy[j].first,680.0));
+                        window.draw(body6);
+                    }
+            }
+        }
+        if(collisionbool)
+        {   collisiontime-=deltatime;
+            window.draw(collisionbody);
+            if(collisiontime<=0.0)collisionbool=false;
         }
 
         if(pos==0&&jump==0)window.draw(body0);
