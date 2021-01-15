@@ -11,6 +11,8 @@ int main()
     vector< pair <double,double>>bullet;
     vector<bool>bulletface;
 
+
+    //Enemy initiation:
     vector< pair <double,double>>enemy;
     vector<bool>enemyon;
 
@@ -41,7 +43,7 @@ int main()
     RectangleShape body(Vector2f(150.0f,150.0f));
      RectangleShape collisionbody(Vector2f(150.0f,150.0f));
 
-    Texture playertexture3[10],playertexture1[10],playertexture2[10],playertexture4[10],playertexture5[10],playertexture6[10],playertexture7[10],playertexture8[9],ex,ex1,bullet1,bullet2,collision;
+    Texture predator,playertexture3[10],playertexture1[10],playertexture2[10],playertexture4[10],playertexture5[10],playertexture6[10],playertexture7[10],playertexture8[9],ex,ex1,bullet1,bullet2,collision;
 
     collision.loadFromFile("collision.png");
 
@@ -55,6 +57,7 @@ int main()
     sprite.setTexture(ex);
     sprite1.setTexture(ex1);
 
+    //Enemy texture:
     playertexture8[0].loadFromFile("enemy/WALK_000.png");
     playertexture8[1].loadFromFile("enemy/WALK_001.png");
     playertexture8[2].loadFromFile("enemy/WALK_002.png");
@@ -299,7 +302,7 @@ int main()
         {
             for(int k=0;k<enemy.size();k++)
             {
-                if((bullet[j].first>=enemy[k].first-10&&bullet[j].first<=enemy[k].first+10)&&(bullet[j].second>=650.0&&bullet[j].second<=730.0))
+                if((bullet[j].first>=enemy[k].first-10&&bullet[j].first<=enemy[k].first+10)&&(bullet[j].second>=650.0&&bullet[j].second<=730.0)&&enemyon[k])
                    {
                 collisionbody.setPosition(bullet[j].first,bullet[j].second);
                 collisionbool=true;
@@ -349,9 +352,9 @@ int main()
 
                 if(enemyon[j])
                 {
-                    enemy[j].first-=.5;
-                    if(pos==1){enemy[j].first+=.1;}
-                    if(pos==2){enemy[j].first-=.1;}
+                    enemy[j].first-=1;
+                    if(pos==1){enemy[j].first+=.3;}
+                    if(pos==2){enemy[j].first-=.3;}
                 }
                 if(enemy[j].first<=0.0)
                 {
