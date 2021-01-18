@@ -11,6 +11,52 @@ int main()
     vector< pair <double,double>>bullet;
     vector<bool>bulletface;
 
+    //Gameover initiation:
+    bool gameover=false;
+
+    //Obstacle check bool:
+    bool steprightonx=true;
+    bool stepleftonx=true;
+    bool stepony=true;
+
+    //Obstackle initiation:
+
+    Texture obstacletexture[10];
+
+    //Log:
+    obstacletexture[0].loadFromFile("obstacle/log.png");
+    RectangleShape obstaclebody(Vector2f(150.0f,150.0f));
+    vector<pair<double,bool>>obstaclelogtimer;
+    vector<pair<double,double>>obstaclelog;
+
+
+    obstaclelogtimer.push_back(make_pair(1.0,false));
+    obstaclelog.push_back(make_pair(1500.0,720.0));
+    obstaclelogtimer.push_back(make_pair(5.0,false));
+    obstaclelog.push_back(make_pair(1500.0,720.0));
+
+    //stair:
+    RectangleShape obstaclebodystair(Vector2f(150.0f,50.0f));
+    obstacletexture[1].loadFromFile("obstacle/stair.png");
+    vector<pair<double,bool>>obstaclestairtimer;
+    vector<pair<double,double>>obstaclestair;
+
+    obstaclestairtimer.push_back(make_pair(2.0,false));
+    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestairtimer.push_back(make_pair(5.0,false));
+    obstaclestair.push_back(make_pair(1500.0,600.0));
+
+    //Slide:
+    obstacletexture[2].loadFromFile("obstacle/slide.png");
+    RectangleShape obstacleslidebody(Vector2f(500.0f,500.0f));
+    vector<pair<double,bool>>obstacleslidetimer;
+    vector<pair<double,double>>obstacleslide;
+
+    obstacleslidetimer.push_back(make_pair(10,false));
+    obstacleslide.push_back(make_pair(1500.0,350.0));
+
+
+
 
     //Enemy initiation:
     vector< pair <double,double>>enemy;
@@ -201,14 +247,14 @@ int main()
 
         float speed=200.0;
         pos=0;
-    if(Keyboard::isKeyPressed(Keyboard::A))
+    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
     {
         movement.x-=speed*deltatime;
         pos=1;
         faceright=false;
         stepcount-=deltatime;
     }
-    if(Keyboard::isKeyPressed(Keyboard::D))
+    if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
     {
         movement.x+=speed*deltatime;
         pos=2;
@@ -218,7 +264,7 @@ int main()
     if(Keyboard::isKeyPressed(Keyboard::Space)||jump!=0)
     {
         if(jump==0){jump=1;
-        jumptimer=1.0;}
+        jumptimer=5.0;}
         pos=3;
     }
     if(Keyboard::isKeyPressed(Keyboard::S)||slide!=0)
@@ -247,6 +293,73 @@ int main()
        else body5.setTexture(&playertexture7[i]);
        }
 
+       //Obstacle check:
+       steprightonx=true;
+       stepleftonx=true;
+        stepony=true;
+       if(!obstaclelog.empty())
+        {
+            for(int j=0;j<obstaclelog.size();j++)
+            {
+                if(obstaclelog[j].first>=600&&obstaclelog[j].first<=800&&obstaclelog[j].second-100<=y)
+                {
+                    if(steprightonx==false){obstaclelog[j].first=600.0;}
+                    if(stepleftonx==false){obstaclelog[j].first=800.0;}
+                if(faceright&&obstaclelog[j].second-100<=y-10)
+                {
+
+                    steprightonx=false;
+                }
+                else if(faceright==false&&obstaclelog[j].second-100<=y-10)
+                {
+
+                    stepleftonx=false;
+                }
+                    stepony=false;
+                }
+                std::cout<<obstaclelog[j].first<<" "<<obstaclelog[j].second<<endl;
+
+
+            }
+        }
+
+        //Stair:
+
+        if(!obstaclestair.empty())
+        {
+            for(int j=0;j<obstaclestair.size();j++)
+            {
+                if(obstaclestair[j].first>=600&&obstaclestair[j].first<=800&&obstaclestair[j].second-150<=y&&obstaclestair[j].second-100>=y)
+                {
+
+                    stepony=false;
+                }
+
+
+            }
+        }
+
+        //slide:
+        if(!obstacleslide.empty())
+        {
+            for(int j=0;j<obstacleslide.size();j++)
+            {
+                if(obstacleslide[j].first>=650&&obstacleslide[j].first<=750&&slide==0&&faceright)
+                {
+
+                    steprightonx=false;
+                }
+                if(obstacleslide[j].first>=750&&obstacleslide[j].first<=850&&slide==0&&faceright==false)
+                {
+
+                    stepleftonx=false;
+                }
+
+
+            }
+        }
+
+
 
         if(i>=9){i=0;}
         time+=deltatime;
@@ -265,16 +378,18 @@ int main()
         else if(movement.x)
 
         if(jump)
-        {jumptimer-=deltatime;
-            if(jumptimer>=0.5){y-=deltatime*(speed+200.0);}
-            else{y+=deltatime*(speed+200.0);}
+        {jumptimer-=deltatime*3;
+            if(jumptimer>=2.5){y-=deltatime*(speed+100);}
+            else{if(stepony)y+=deltatime*(speed+100);}
             if(jumptimer<=0.0)
                 {
-                    y=660.0;
+
                     jump=0;
                     jumptimer=0.0;
             }
         }
+        if(y<660.0&&stepony&&jump==0){y+=deltatime*(speed+100);}
+        if(y>660.0){y=660.0;}
         if(slide)
         {slidetimer-=deltatime;
 
@@ -316,6 +431,84 @@ int main()
             }
         }
 
+        //Obstacle update:
+
+        //Log:
+        if(!obstaclelog.empty())
+        {
+            for(int j=0;j<obstaclelog.size();j++)
+            {
+                if(stepcount>=obstaclelogtimer[j].first&&stepcount<=obstaclelogtimer[j].first+10.0){obstaclelogtimer[j].second=true;}
+                else{obstaclelogtimer[j].second=false;}
+                if(obstaclelogtimer[j].second)
+                {
+
+                    if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
+                    {
+                        obstaclelog[j].first-=deltatime*speed;
+
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
+                    {
+                        obstaclelog[j].first+=deltatime*speed;
+
+                    }
+                }
+
+            }
+        }
+
+        //Stair:
+
+        if(!obstaclestair.empty())
+        {
+            for(int j=0;j<obstaclestair.size();j++)
+            {
+                if(stepcount>=obstaclestairtimer[j].first&&stepcount<=obstaclestairtimer[j].first+10.0){obstaclestairtimer[j].second=true;}
+                else{obstaclestairtimer[j].second=false;}
+                if(obstaclestairtimer[j].second)
+                {
+
+                    if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
+                    {
+                        obstaclestair[j].first-=deltatime*speed;
+
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
+                    {
+                        obstaclestair[j].first+=deltatime*speed;
+
+                    }
+                }
+
+            }
+        }
+
+        //Slide:
+        if(!obstacleslide.empty())
+        {
+            for(int j=0;j<obstacleslide.size();j++)
+            {
+                if(stepcount>=obstacleslidetimer[j].first&&stepcount<=obstacleslidetimer[j].first+10.0){obstacleslidetimer[j].second=true;}
+                else{obstacleslidetimer[j].second=false;}
+                if(obstacleslidetimer[j].second)
+                {
+
+                    if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
+                    {
+                        obstacleslide[j].first-=deltatime*speed;
+
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
+                    {
+                        obstacleslide[j].first+=deltatime*speed;
+
+                    }
+                }
+
+            }
+        }
+
 
 
 
@@ -352,9 +545,9 @@ int main()
 
                 if(enemyon[j])
                 {
-                    enemy[j].first-=1;
-                    if(pos==1){enemy[j].first+=.3;}
-                    if(pos==2){enemy[j].first-=.3;}
+                    enemy[j].first-=deltatime*(speed);
+                    if(pos==1){enemy[j].first+=.1;}
+                    if(pos==2){enemy[j].first-=.5;}
                 }
                 if(enemy[j].first<=0.0)
                 {
@@ -381,6 +574,50 @@ int main()
         else if(pos==2&&jump==0&&slide==0)window.draw(body2);
         else if(pos==3&&jump!=0&&slide==0)window.draw(body3);
         else if(pos==4&&jump==0&&slide!=0)window.draw(body5);
+
+        //Obstacle draw:
+
+        //Log:
+
+        if(!obstaclelog.empty())
+        {
+            for(int j=0;j<obstaclelog.size();j++)
+            {   obstaclebody.setTexture(&obstacletexture[0]);
+
+                if(obstaclelogtimer[j].second)
+                {   obstaclebody.setPosition(obstaclelog[j].first,obstaclelog[j].second);
+                    window.draw(obstaclebody);
+                }
+
+            }
+        }
+        //Stair:
+        if(!obstaclestair.empty())
+        {
+            for(int j=0;j<obstaclestair.size();j++)
+            {   obstaclebodystair.setTexture(&obstacletexture[1]);
+
+                if(obstaclestairtimer[j].second)
+                {   obstaclebodystair.setPosition(obstaclestair[j].first,obstaclestair[j].second);
+                    window.draw(obstaclebodystair);
+                }
+
+            }
+        }
+
+        //Slide:
+        if(!obstacleslide.empty())
+        {
+            for(int j=0;j<obstacleslide.size();j++)
+            {   obstacleslidebody.setTexture(&obstacletexture[2]);
+
+                if(obstacleslidetimer[j].second)
+                {   obstacleslidebody.setPosition(obstacleslide[j].first,obstacleslide[j].second);
+                    window.draw(obstacleslidebody);
+                }
+
+            }
+        }
         window.display();
     }
 
