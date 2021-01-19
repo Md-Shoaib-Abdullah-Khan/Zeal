@@ -4,6 +4,7 @@
 #include "player.h"
 #include<iostream>
 #include<vector>
+#include<cmath>
 using namespace sf;
 using namespace std;
 int main()
@@ -54,6 +55,17 @@ int main()
 
     obstacleslidetimer.push_back(make_pair(10,false));
     obstacleslide.push_back(make_pair(1500.0,350.0));
+
+    //rock:
+    RectangleShape obstaclerockbody(Vector2f(200.0f,200.0f));
+    obstacletexture[3].loadFromFile("obstacle/rock.png");
+    vector<pair<double,bool>>obstaclerocktimer;
+    vector<pair<double,double>>obstaclerock;
+
+    obstaclerocktimer.push_back(make_pair(.2,false));
+    obstaclerock.push_back(make_pair(1500.0,700.0));
+    obstaclerocktimer.push_back(make_pair(2,false));
+    obstaclerock.push_back(make_pair(1500.0,700.0));
 
 
 
@@ -301,23 +313,23 @@ int main()
         {
             for(int j=0;j<obstaclelog.size();j++)
             {
-                if(obstaclelog[j].first>=600&&obstaclelog[j].first<=800&&obstaclelog[j].second-100<=y)
+                if(obstaclelog[j].first>=600&&obstaclelog[j].first<=800&&obstaclelog[j].second-100<=y&&obstaclelogtimer[j].second)
                 {
-                    if(steprightonx==false){obstaclelog[j].first=600.0;}
-                    if(stepleftonx==false){obstaclelog[j].first=800.0;}
-                if(faceright&&obstaclelog[j].second-100<=y-10)
+
+                if(faceright&&(ceil(obstaclelog[j].first)==800))
                 {
 
                     steprightonx=false;
                 }
-                else if(faceright==false&&obstaclelog[j].second-100<=y-10)
+                if(faceright==false&&(ceil(obstaclelog[j].first)==600||(ceil(obstaclelog[j].first)==601)))
                 {
 
                     stepleftonx=false;
                 }
                     stepony=false;
+                std::cout<<ceil(obstaclelog[j].first)<<endl;
                 }
-                std::cout<<obstaclelog[j].first<<" "<<obstaclelog[j].second<<endl;
+
 
 
             }
@@ -344,16 +356,42 @@ int main()
         {
             for(int j=0;j<obstacleslide.size();j++)
             {
-                if(obstacleslide[j].first>=650&&obstacleslide[j].first<=750&&slide==0&&faceright)
+                if(ceil(obstacleslide[j].first)==450&&slide==0&&faceright)
                 {
 
                     steprightonx=false;
                 }
-                if(obstacleslide[j].first>=750&&obstacleslide[j].first<=850&&slide==0&&faceright==false)
+                if((ceil(obstacleslide[j].first)==300||ceil(obstacleslide[j].first)==301)&&slide==0&&faceright==false)
+                {
+                    stepleftonx=false;
+                }
+
+
+            }
+        }
+
+        //rock:
+        if(!obstaclerock.empty())
+        {
+            for(int j=0;j<obstaclerock.size();j++)
+            {
+                if(obstaclerock[j].first>=550&&obstaclerock[j].first<=750&&obstaclerock[j].second-150<=y&&obstaclerocktimer[j].second)
+                {
+
+                if(faceright&&(ceil(obstaclerock[j].first)==750))
+                {
+
+                    steprightonx=false;
+                }
+                if(faceright==false&&(ceil(obstaclerock[j].first)==551||(ceil(obstaclerock[j].first)==552)))
                 {
 
                     stepleftonx=false;
                 }
+                    stepony=false;
+
+                }
+
 
 
             }
@@ -374,8 +412,7 @@ int main()
          bulletsprite1.setTexture(&bullet1);
          bulletsprite2.setTexture(&bullet2);
 
-         if(movement.x>=1000){movement.x=0.0f;}
-        else if(movement.x)
+
 
         if(jump)
         {jumptimer-=deltatime*3;
@@ -409,7 +446,7 @@ int main()
         body5.setPosition(700.0f,y+50);
 
 
-        std::cout<<time<<" "<<stepcount<<std::endl;
+        //std::cout<<time<<" "<<stepcount<<std::endl;
 
         collisionbody.setTexture(&collision);
 
@@ -438,7 +475,12 @@ int main()
         {
             for(int j=0;j<obstaclelog.size();j++)
             {
-                if(stepcount>=obstaclelogtimer[j].first&&stepcount<=obstaclelogtimer[j].first+10.0){obstaclelogtimer[j].second=true;}
+                if(stepcount>=obstaclelogtimer[j].first&&stepcount<=obstaclelogtimer[j].first+10.0)
+                    {
+                        obstaclelogtimer[j].second=true;
+                        obstaclebody.setTexture(&obstacletexture[0]);
+
+                }
                 else{obstaclelogtimer[j].second=false;}
                 if(obstaclelogtimer[j].second)
                 {
@@ -508,6 +550,35 @@ int main()
 
             }
         }
+        //rock:
+        if(!obstaclerock.empty())
+        {
+            for(int j=0;j<obstaclerock.size();j++)
+            {
+                if(stepcount>=obstaclerocktimer[j].first&&stepcount<=obstaclerocktimer[j].first+10.0)
+                    {
+                        obstaclerocktimer[j].second=true;
+                        obstaclerockbody.setTexture(&obstacletexture[3]);
+
+                }
+                else{obstaclerocktimer[j].second=false;}
+                if(obstaclerocktimer[j].second)
+                {
+
+                    if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
+                    {
+                        obstaclerock[j].first-=deltatime*speed;
+
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
+                    {
+                        obstaclerock[j].first+=deltatime*speed;
+
+                    }
+                }
+
+            }
+        }
 
 
 
@@ -568,6 +639,19 @@ int main()
             window.draw(collisionbody);
             if(collisiontime<=0.0)collisionbool=false;
         }
+        //Slide:
+        if(!obstacleslide.empty())
+        {
+            for(int j=0;j<obstacleslide.size();j++)
+            {   obstacleslidebody.setTexture(&obstacletexture[2]);
+
+                if(obstacleslidetimer[j].second)
+                {   obstacleslidebody.setPosition(obstacleslide[j].first,obstacleslide[j].second);
+                    window.draw(obstacleslidebody);
+                }
+
+            }
+        }
 
         if(pos==0&&jump==0)window.draw(body0);
         else if(pos==1&&jump==0&&slide==0)window.draw(body1);
@@ -582,7 +666,7 @@ int main()
         if(!obstaclelog.empty())
         {
             for(int j=0;j<obstaclelog.size();j++)
-            {   obstaclebody.setTexture(&obstacletexture[0]);
+            {
 
                 if(obstaclelogtimer[j].second)
                 {   obstaclebody.setPosition(obstaclelog[j].first,obstaclelog[j].second);
@@ -605,15 +689,16 @@ int main()
             }
         }
 
-        //Slide:
-        if(!obstacleslide.empty())
-        {
-            for(int j=0;j<obstacleslide.size();j++)
-            {   obstacleslidebody.setTexture(&obstacletexture[2]);
 
-                if(obstacleslidetimer[j].second)
-                {   obstacleslidebody.setPosition(obstacleslide[j].first,obstacleslide[j].second);
-                    window.draw(obstacleslidebody);
+        //rock:
+         if(!obstaclerock.empty())
+        {
+            for(int j=0;j<obstaclerock.size();j++)
+            {
+
+                if(obstaclerocktimer[j].second)
+                {   obstaclerockbody.setPosition(obstaclerock[j].first,obstaclerock[j].second);
+                    window.draw(obstaclerockbody);
                 }
 
             }

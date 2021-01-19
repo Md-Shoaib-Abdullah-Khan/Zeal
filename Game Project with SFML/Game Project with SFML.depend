@@ -491,11 +491,12 @@
 	"animation.h"
 	<iostream>
 
-1610905850 source:g:\unsolved ru\game\zeal\game project with sfml\main.cpp
+1611044055 source:g:\unsolved ru\game\zeal\game project with sfml\main.cpp
 	<SFML/Graphics.hpp>
 	"Animation.h"
 	"animation.h"
 	"player.h"
 	<iostream>
 	<vector>
+	<cmath>
 
