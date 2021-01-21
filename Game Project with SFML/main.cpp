@@ -5,6 +5,7 @@
 #include<iostream>
 #include<vector>
 #include<cmath>
+
 using namespace sf;
 using namespace std;
 int main()
@@ -55,14 +56,33 @@ int main()
     vector<pair<double,bool>>cointimer;
     vector<pair<double,double>>coin;
 
-    cointimer.push_back(make_pair(2.0,false));
-    coin.push_back(make_pair(1500.0,700.0));
+    cointimer.push_back(make_pair(8.2,false));
+    coin.push_back(make_pair(1500.0,500.0));
     cointimer.push_back(make_pair(5.0,false));
     coin.push_back(make_pair(1500.0,700.0));
-
+    cointimer.push_back(make_pair(24.3,false));
+    coin.push_back(make_pair(1500.0,500.0));
+    cointimer.push_back(make_pair(20.3,false));
+    coin.push_back(make_pair(1500.0,500.0));
+    cointimer.push_back(make_pair(28.3,false));
+    coin.push_back(make_pair(1500.0,500.0));
 
     //Health & Shield:
     int health=5, shield=5;
+
+    //health point initiation:
+    RectangleShape healthbody(Vector2f(50.0f,50.0f));
+    Texture healthtexture;
+    healthtexture.loadFromFile("others/health&shield/health.png");
+    double healthontimer=3.0,healthofftimer=3.0,healthx=200.0,healthy=600.0;
+    bool healthon=false;
+
+    //shield point initiation:
+    RectangleShape shieldbody(Vector2f(50.0f,50.0f));
+    Texture shieldtexture;
+    shieldtexture.loadFromFile("others/health&shield/shield.png");
+    double shieldontimer=3.0,shieldofftimer=3.0,shieldx=200.0,shieldy=600.0;
+    bool shieldon=false;
 
     //health bar initiation:
     RectangleShape healthbarbody(Vector2f(200.0f,50.0f));
@@ -96,8 +116,8 @@ int main()
     vector<pair<double,double>>obstaclelog;
 
 
-    //obstaclelogtimer.push_back(make_pair(1.0,false));
-   // obstaclelog.push_back(make_pair(1500.0,720.0));
+    obstaclelogtimer.push_back(make_pair(4.8,false));
+    obstaclelog.push_back(make_pair(1500.0,720.0));
    // obstaclelogtimer.push_back(make_pair(5.0,false));
     //obstaclelog.push_back(make_pair(1500.0,720.0));
 
@@ -107,10 +127,10 @@ int main()
     vector<pair<double,bool>>obstaclestairtimer;
     vector<pair<double,double>>obstaclestair;
 
-    //obstaclestairtimer.push_back(make_pair(2.0,false));
-    //obstaclestair.push_back(make_pair(1500.0,600.0));
-    //obstaclestairtimer.push_back(make_pair(5.0,false));
-    //obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestairtimer.push_back(make_pair(8.0,false));
+    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestairtimer.push_back(make_pair(24.0,false));
+    obstaclestair.push_back(make_pair(1500.0,600.0));
 
     //Slide:
     obstacletexture[2].loadFromFile("obstacle/slide.png");
@@ -118,8 +138,8 @@ int main()
     vector<pair<double,bool>>obstacleslidetimer;
     vector<pair<double,double>>obstacleslide;
 
-    //obstacleslidetimer.push_back(make_pair(10,false));
-   // obstacleslide.push_back(make_pair(1500.0,350.0));
+    obstacleslidetimer.push_back(make_pair(15,false));
+    obstacleslide.push_back(make_pair(1500.0,350.0));
 
     //rock:
     RectangleShape obstaclerockbody(Vector2f(200.0f,200.0f));
@@ -133,24 +153,24 @@ int main()
     //obstaclerock.push_back(make_pair(1500.0,700.0));
 
     //river:
-    RectangleShape obstacleriverbody(Vector2f(300.0f,250.0f));
+    RectangleShape obstacleriverbody(Vector2f(250.0f,250.0f));
     obstacletexture[4].loadFromFile("obstacle/river.png");
     vector<pair<double,bool>>obstaclerivertimer;
     vector<pair<double,double>>obstacleriver;
 
-   // obstaclerivertimer.push_back(make_pair(1.0,false));
-    //obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(20.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
     //obstaclerivertimer.push_back(make_pair(10.0,false));
     //obstacleriver.push_back(make_pair(1500.0,660.0));
 
     //hole:
-    RectangleShape obstacleholebody(Vector2f(300.0f,250.0f));
+    RectangleShape obstacleholebody(Vector2f(250.0f,250.0f));
     obstacletexture[5].loadFromFile("obstacle/hole.png");
     vector<pair<double,bool>>obstacleholetimer;
     vector<pair<double,double>>obstaclehole;
 
-    //obstacleholetimer.push_back(make_pair(0.1,false));
-    //obstaclehole.push_back(make_pair(1500.0,810.0));
+    obstacleholetimer.push_back(make_pair(28.0,false));
+    obstaclehole.push_back(make_pair(1500.0,810.0));
     //obstacleholetimer.push_back(make_pair(8.0,false));
     //obstaclehole.push_back(make_pair(1500.0,660.0));
 
@@ -162,22 +182,21 @@ int main()
     vector< pair <double,double>>enemy;
     vector<pair<double,bool>>enemyon;
 
-    enemy.push_back(make_pair(1500.0,680.0));
-    enemyon.push_back(make_pair(3.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
-    enemyon.push_back(make_pair(4.5,false));
-    enemy.push_back(make_pair(1500.0,680.0));
-    enemyon.push_back(make_pair(5.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
-    enemyon.push_back(make_pair(5.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
-    enemyon.push_back(make_pair(5.5,false));
-    enemy.push_back(make_pair(1500.0,680.0));
-    enemyon.push_back(make_pair(5.7,false));
-    enemy.push_back(make_pair(1500.0,680.0));
-    enemyon.push_back(make_pair(6.5,false));
-    enemy.push_back(make_pair(1500.0,680.0));
-    enemyon.push_back(make_pair(6.9,false));
+    //enemy.push_back(make_pair(1500.0,680.0));
+    //enemyon.push_back(make_pair(3.0,false));
+   // enemy.push_back(make_pair(1500.0,680.0));
+   // enemyon.push_back(make_pair(4.5,false));
+   // enemy.push_back(make_pair(1500.0,680.0));
+   // enemyon.push_back(make_pair(5.0,false));
+   // enemy.push_back(make_pair(1500.0,680.0));
+   // enemyon.push_back(make_pair(5.0,false));
+   // enemy.push_back(make_pair(1500.0,680.0));
+   // enemyon.push_back(make_pair(5.5,false));
+   // enemy.push_back(make_pair(1500.0,680.0));
+   // enemyon.push_back(make_pair(5.7,false));
+   // enemy.push_back(make_pair(1500.0,680.0));
+   // enemyon.push_back(make_pair(6.5,false));
+   // enemy.push_back(make_pair(1500.0,680.0));
 
     RenderWindow window(sf::VideoMode(1500, 900), "SFML works!");
     RectangleShape body6(Vector2f(150.0f,150.0f));
@@ -540,6 +559,22 @@ int main()
             }
         }
 
+        //health check:
+        if(healthx>=700&&healthx<=750.0&&y>=healthy-20&&y<=healthy+20)
+        {
+            healthon=false;
+            healthontimer=0.0;
+            if(health<5){health++;}
+        }
+
+        //shield check:
+        if(shieldx>=700&&shieldx<=750.0&&y>=shieldy-20&&y<=shieldy+20)
+        {
+            shieldon=false;
+            shieldontimer=0.0;
+            if(shield<5){shield++;}
+        }
+
 
 
 
@@ -783,15 +818,87 @@ int main()
             }
         }
 
-        //health update:
+        //health bar update:
 
         healthbarbody.setTexture(&healthbar[health]);
         healthbarbody.setPosition(10.0,10.0);
 
-        //shield update:
+        //shield bar update:
 
         shieldbarbody.setTexture(&shieldbar[shield]);
         shieldbarbody.setPosition(10.0,70.0);
+
+        //health update:
+        if(stepcount>=1.0&&stepcount<=1000.0)
+        {
+
+            if(healthontimer>=0.0)
+            {
+                healthontimer-=deltatime;
+                healthon=true;
+            }
+            else if(healthofftimer>=0.0)
+            {
+                healthofftimer-=deltatime;
+                healthx=200.0+rand()%1000;
+                healthy=500.0+rand()%200;
+            }
+            else
+            {
+                healthontimer=3.0;
+                healthofftimer=3.0;
+            }
+            healthbody.setTexture(&healthtexture);
+            healthbody.setPosition(healthx,healthy);
+
+
+        }
+        if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
+                    {
+                        healthx-=deltatime*speed;
+
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
+                    {
+                        healthx+=deltatime*speed;
+
+                    }
+
+                    //health update:
+        if(stepcount>=1.0&&stepcount<=1000.0)
+        {
+
+            if(shieldontimer>=0.0)
+            {
+                shieldontimer-=deltatime;
+                shieldon=true;
+            }
+            else if(shieldofftimer>=0.0)
+            {
+                shieldofftimer-=deltatime;
+                shieldx=200.0+rand()%1000;
+                shieldy=500.0+rand()%200;
+            }
+            else
+            {
+                shieldontimer=3.0;
+                shieldofftimer=3.0;
+            }
+            shieldbody.setTexture(&shieldtexture);
+            shieldbody.setPosition(shieldx,shieldy);
+
+
+        }
+        if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
+                    {
+                        shieldx-=deltatime*speed;
+
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
+                    {
+                        shieldx+=deltatime*speed;
+
+                    }
 
         //coin update:
         if(!coin.empty())
@@ -996,6 +1103,19 @@ int main()
         coincountbody.setTexture(&coincounttexture[count4]);
         coincountbody.setPosition(750.0,10.0);
         window.draw(coincountbody);
+
+        //Health:
+
+        if(healthontimer>0.0&&healthon)
+        {
+            window.draw(healthbody);
+        }
+        //Shield:
+
+        if(shieldontimer>0.0&&shieldon)
+        {
+            window.draw(shieldbody);
+        }
 
 
 
