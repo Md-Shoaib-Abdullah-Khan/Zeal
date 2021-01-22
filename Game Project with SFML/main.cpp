@@ -21,51 +21,8 @@ int main()
     bool stepleftonx=true;
     bool stepony=true;
 
-    //Coin count initiation:
-    int count1=0,count2=0,count3=0,count4=0;
 
-    RectangleShape coincountbody(Vector2f(40.0f,40.0f));
-    Texture coincounttexture[10];
 
-    coincounttexture[0].loadFromFile("others/numbers/0.png");
-    coincounttexture[1].loadFromFile("others/numbers/1.png");
-    coincounttexture[2].loadFromFile("others/numbers/2.png");
-    coincounttexture[3].loadFromFile("others/numbers/3.png");
-    coincounttexture[4].loadFromFile("others/numbers/4.png");
-    coincounttexture[5].loadFromFile("others/numbers/5.png");
-    coincounttexture[6].loadFromFile("others/numbers/6.png");
-    coincounttexture[7].loadFromFile("others/numbers/7.png");
-    coincounttexture[8].loadFromFile("others/numbers/8.png");
-    coincounttexture[9].loadFromFile("others/numbers/9.png");
-
-    //Coin initiation:
-    RectangleShape coinbody(Vector2f(80.0f,80.0f));
-    Texture cointexture[10];
-
-    cointexture[0].loadFromFile("others/coin/Coin_000.png");
-    cointexture[1].loadFromFile("others/coin/Coin_001.png");
-    cointexture[2].loadFromFile("others/coin/Coin_002.png");
-    cointexture[3].loadFromFile("others/coin/Coin_003.png");
-    cointexture[4].loadFromFile("others/coin/Coin_004.png");
-    cointexture[5].loadFromFile("others/coin/Coin_005.png");
-    cointexture[6].loadFromFile("others/coin/Coin_006.png");
-    cointexture[7].loadFromFile("others/coin/Coin_007.png");
-    cointexture[8].loadFromFile("others/coin/Coin_008.png");
-    cointexture[9].loadFromFile("others/coin/Coin_009.png");
-
-    vector<pair<double,bool>>cointimer;
-    vector<pair<double,double>>coin;
-
-    cointimer.push_back(make_pair(8.2,false));
-    coin.push_back(make_pair(1500.0,500.0));
-    cointimer.push_back(make_pair(5.0,false));
-    coin.push_back(make_pair(1500.0,700.0));
-    cointimer.push_back(make_pair(24.3,false));
-    coin.push_back(make_pair(1500.0,500.0));
-    cointimer.push_back(make_pair(20.3,false));
-    coin.push_back(make_pair(1500.0,500.0));
-    cointimer.push_back(make_pair(28.3,false));
-    coin.push_back(make_pair(1500.0,500.0));
 
     //Health & Shield:
     int health=5, shield=5;
@@ -104,6 +61,111 @@ int main()
     shieldbar[4].loadFromFile("others/health&shield/shield_bar004.png");
     shieldbar[5].loadFromFile("others/health&shield/shield_bar005.png");
 
+    //Coin count initiation:
+    int count1=0,count2=0,count3=0,count4=0;
+
+    RectangleShape coincountbody(Vector2f(40.0f,40.0f));
+    Texture coincounttexture[10];
+
+    coincounttexture[0].loadFromFile("others/numbers/0.png");
+    coincounttexture[1].loadFromFile("others/numbers/1.png");
+    coincounttexture[2].loadFromFile("others/numbers/2.png");
+    coincounttexture[3].loadFromFile("others/numbers/3.png");
+    coincounttexture[4].loadFromFile("others/numbers/4.png");
+    coincounttexture[5].loadFromFile("others/numbers/5.png");
+    coincounttexture[6].loadFromFile("others/numbers/6.png");
+    coincounttexture[7].loadFromFile("others/numbers/7.png");
+    coincounttexture[8].loadFromFile("others/numbers/8.png");
+    coincounttexture[9].loadFromFile("others/numbers/9.png");
+
+    //Coin initiation:
+    RectangleShape coinbody(Vector2f(80.0f,80.0f));
+    Texture cointexture[10];
+
+    cointexture[0].loadFromFile("others/coin/Coin_000.png");
+    cointexture[1].loadFromFile("others/coin/Coin_001.png");
+    cointexture[2].loadFromFile("others/coin/Coin_002.png");
+    cointexture[3].loadFromFile("others/coin/Coin_003.png");
+    cointexture[4].loadFromFile("others/coin/Coin_004.png");
+    cointexture[5].loadFromFile("others/coin/Coin_005.png");
+    cointexture[6].loadFromFile("others/coin/Coin_006.png");
+    cointexture[7].loadFromFile("others/coin/Coin_007.png");
+    cointexture[8].loadFromFile("others/coin/Coin_008.png");
+    cointexture[9].loadFromFile("others/coin/Coin_009.png");
+
+    vector<pair<double,bool>>cointimer;
+    vector<pair<double,double>>coin;
+
+    cointimer.push_back(make_pair(2.0,false));
+    coin.push_back(make_pair(1500.0,700.0));
+    cointimer.push_back(make_pair(10.0,false));
+    coin.push_back(make_pair(1500.0,700.0));
+    cointimer.push_back(make_pair(8.2,false));
+    coin.push_back(make_pair(1500.0,500.0));
+    cointimer.push_back(make_pair(5.0,false));
+    coin.push_back(make_pair(1500.0,700.0));
+    cointimer.push_back(make_pair(24.3,false));
+    coin.push_back(make_pair(1500.0,500.0));
+    cointimer.push_back(make_pair(20.3,false));
+    coin.push_back(make_pair(1500.0,500.0));
+    cointimer.push_back(make_pair(28.3,false));
+    coin.push_back(make_pair(1500.0,500.0));
+    cointimer.push_back(make_pair(33.2,false));
+    coin.push_back(make_pair(1500.0,500.0));
+    cointimer.push_back(make_pair(42.7,false));
+    coin.push_back(make_pair(1500.0,500.0));
+    cointimer.push_back(make_pair(46.7,false));
+    coin.push_back(make_pair(1500.0,500.0));
+    cointimer.push_back(make_pair(44.6,false));
+    coin.push_back(make_pair(1500.0,300.0));
+    cointimer.push_back(make_pair(44.8,false));
+    coin.push_back(make_pair(1500.0,300.0));
+    cointimer.push_back(make_pair(41.5,false));
+    coin.push_back(make_pair(1500.0,700.0));
+    cointimer.push_back(make_pair(43.5,false));
+    coin.push_back(make_pair(1500.0,700.0));
+    cointimer.push_back(make_pair(45.5,false));
+    coin.push_back(make_pair(1500.0,700.0));
+    cointimer.push_back(make_pair(47.5,false));
+    coin.push_back(make_pair(1500.0,700.0));
+    cointimer.push_back(make_pair(62.2,false));
+    coin.push_back(make_pair(1500.0,400.0));
+    cointimer.push_back(make_pair(64.2,false));
+    coin.push_back(make_pair(1500.0,200.0));
+    cointimer.push_back(make_pair(66.2,false));
+    coin.push_back(make_pair(1500.0,400.0));
+    cointimer.push_back(make_pair(68.2,false));
+    coin.push_back(make_pair(1500.0,600.0));
+    cointimer.push_back(make_pair(70.2,false));
+    coin.push_back(make_pair(1500.0,400.0));
+    cointimer.push_back(make_pair(72.2,false));
+    coin.push_back(make_pair(1500.0,200.0));
+    cointimer.push_back(make_pair(73.2,false));
+    coin.push_back(make_pair(1500.0,200.0));
+    cointimer.push_back(make_pair(74.2,false));
+    coin.push_back(make_pair(1500.0,200.0));
+    cointimer.push_back(make_pair(75.2,false));
+    coin.push_back(make_pair(1500.0,200.0));
+    cointimer.push_back(make_pair(72.2,false));
+    coin.push_back(make_pair(1500.0,600.0));
+    cointimer.push_back(make_pair(73.2,false));
+    coin.push_back(make_pair(1500.0,600.0));
+    cointimer.push_back(make_pair(74.2,false));
+    coin.push_back(make_pair(1500.0,600.0));
+    cointimer.push_back(make_pair(75.2,false));
+    coin.push_back(make_pair(1500.0,600.0));
+    cointimer.push_back(make_pair(77.2,false));
+    coin.push_back(make_pair(1500.0,400.0));
+    cointimer.push_back(make_pair(79.2,false));
+    coin.push_back(make_pair(1500.0,200.0));
+    cointimer.push_back(make_pair(81.2,false));
+    coin.push_back(make_pair(1500.0,400.0));
+    cointimer.push_back(make_pair(83.2,false));
+    coin.push_back(make_pair(1500.0,600.0));
+    cointimer.push_back(make_pair(85.2,false));
+    coin.push_back(make_pair(1500.0,400.0));
+
+
 
     //Obstackle initiation:
 
@@ -131,6 +193,67 @@ int main()
     obstaclestair.push_back(make_pair(1500.0,600.0));
     obstaclestairtimer.push_back(make_pair(24.0,false));
     obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestairtimer.push_back(make_pair(33.0,false));
+    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestairtimer.push_back(make_pair(42.5,false));
+    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestairtimer.push_back(make_pair(44.5,false));
+    obstaclestair.push_back(make_pair(1500.0,400.0));
+    obstaclestairtimer.push_back(make_pair(46.5,false));
+    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestairtimer.push_back(make_pair(54.0,false));
+    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestairtimer.push_back(make_pair(62.0,false));
+    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestairtimer.push_back(make_pair(64.0,false));
+    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestairtimer.push_back(make_pair(66.0,false));
+    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestairtimer.push_back(make_pair(68.0,false));
+    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestairtimer.push_back(make_pair(70.0,false));
+    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestairtimer.push_back(make_pair(72.0,false));
+    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestairtimer.push_back(make_pair(72.5,false));
+    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestairtimer.push_back(make_pair(73.0,false));
+    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestairtimer.push_back(make_pair(73.5,false));
+    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestairtimer.push_back(make_pair(74.0,false));
+    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestairtimer.push_back(make_pair(74.5,false));
+    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestairtimer.push_back(make_pair(75.0,false));
+    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestairtimer.push_back(make_pair(72.0,false));
+    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestairtimer.push_back(make_pair(72.5,false));
+    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestairtimer.push_back(make_pair(73.0,false));
+    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestairtimer.push_back(make_pair(73.5,false));
+    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestairtimer.push_back(make_pair(74.0,false));
+    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestairtimer.push_back(make_pair(74.5,false));
+    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestairtimer.push_back(make_pair(75.0,false));
+    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestairtimer.push_back(make_pair(77.0,false));
+    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestairtimer.push_back(make_pair(79.0,false));
+    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestairtimer.push_back(make_pair(81.0,false));
+    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestairtimer.push_back(make_pair(83.0,false));
+    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestairtimer.push_back(make_pair(85.0,false));
+    obstaclestair.push_back(make_pair(1500.0,500.0));
+
+
+
 
     //Slide:
     obstacletexture[2].loadFromFile("obstacle/slide.png");
@@ -147,10 +270,14 @@ int main()
     vector<pair<double,bool>>obstaclerocktimer;
     vector<pair<double,double>>obstaclerock;
 
-   // obstaclerocktimer.push_back(make_pair(.2,false));
-   // obstaclerock.push_back(make_pair(1500.0,700.0));
-    //obstaclerocktimer.push_back(make_pair(2,false));
-    //obstaclerock.push_back(make_pair(1500.0,700.0));
+    obstaclerocktimer.push_back(make_pair(52.0,false));
+    obstaclerock.push_back(make_pair(1500.0,700.0));
+    obstaclerocktimer.push_back(make_pair(56.0,false));
+    obstaclerock.push_back(make_pair(1500.0,700.0));
+    obstaclerocktimer.push_back(make_pair(60.0,false));
+    obstaclerock.push_back(make_pair(1500.0,700.0));
+    obstaclerocktimer.push_back(make_pair(87.0,false));
+    obstaclerock.push_back(make_pair(1500.0,700.0));
 
     //river:
     RectangleShape obstacleriverbody(Vector2f(250.0f,250.0f));
@@ -160,8 +287,59 @@ int main()
 
     obstaclerivertimer.push_back(make_pair(20.0,false));
     obstacleriver.push_back(make_pair(1500.0,660.0));
-    //obstaclerivertimer.push_back(make_pair(10.0,false));
-    //obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(61.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(62.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(63.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(64.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(65.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(66.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(67.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(68.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(69.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(70.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(71.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(72.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(73.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(74.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(75.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(76.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(77.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(78.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(79.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(80.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(81.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(82.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(83.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(84.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(85.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstaclerivertimer.push_back(make_pair(86.0,false));
+    obstacleriver.push_back(make_pair(1500.0,660.0));
+
 
     //hole:
     RectangleShape obstacleholebody(Vector2f(250.0f,250.0f));
@@ -171,8 +349,20 @@ int main()
 
     obstacleholetimer.push_back(make_pair(28.0,false));
     obstaclehole.push_back(make_pair(1500.0,810.0));
-    //obstacleholetimer.push_back(make_pair(8.0,false));
-    //obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstacleholetimer.push_back(make_pair(32.0,false));
+    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstacleholetimer.push_back(make_pair(33.0,false));
+    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstacleholetimer.push_back(make_pair(40.0,false));
+    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstacleholetimer.push_back(make_pair(42.0,false));
+    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstacleholetimer.push_back(make_pair(44.0,false));
+    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstacleholetimer.push_back(make_pair(46.0,false));
+    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstacleholetimer.push_back(make_pair(48.0,false));
+    obstaclehole.push_back(make_pair(1500.0,660.0));
 
 
 
@@ -985,33 +1175,6 @@ int main()
                     }
             }
         }
-
-        //Slide:
-        if(!obstacleslide.empty())
-        {
-            for(int j=0;j<obstacleslide.size();j++)
-            {   obstacleslidebody.setTexture(&obstacletexture[2]);
-
-                if(obstacleslidetimer[j].second)
-                {   obstacleslidebody.setPosition(obstacleslide[j].first,obstacleslide[j].second);
-                    window.draw(obstacleslidebody);
-                }
-
-            }
-        }
-
-        if(pos==0&&jump==0)window.draw(body0);
-        else if(pos==1&&jump==0&&slide==0)window.draw(body1);
-        else if(pos==2&&jump==0&&slide==0)window.draw(body2);
-        else if(pos==3&&jump!=0&&slide==0)window.draw(body3);
-        else if(pos==4&&jump==0&&slide!=0)window.draw(body5);
-
-        if(collisionbool)
-        {   collisiontime-=deltatime;
-            window.draw(collisionbody);
-            if(collisiontime<=0.0)collisionbool=false;
-        }
-
         //Obstacle draw:
 
         //Log:
@@ -1069,6 +1232,48 @@ int main()
 
             }
         }
+
+        //Slide:
+        if(!obstacleslide.empty())
+        {
+            for(int j=0;j<obstacleslide.size();j++)
+            {   obstacleslidebody.setTexture(&obstacletexture[2]);
+
+                if(obstacleslidetimer[j].second)
+                {   obstacleslidebody.setPosition(obstacleslide[j].first,obstacleslide[j].second);
+                    window.draw(obstacleslidebody);
+                }
+
+            }
+        }
+        //Rock:
+
+        if(!obstaclerock.empty())
+        {
+            for(int j=0;j<obstaclerock.size();j++)
+            {
+
+                if(obstaclerocktimer[j].second)
+                {   obstaclerockbody.setPosition(obstaclerock[j].first,obstaclerock[j].second);
+                    window.draw(obstaclerockbody);
+                }
+
+            }
+        }
+
+        if(pos==0&&jump==0)window.draw(body0);
+        else if(pos==1&&jump==0&&slide==0)window.draw(body1);
+        else if(pos==2&&jump==0&&slide==0)window.draw(body2);
+        else if(pos==3&&jump!=0&&slide==0)window.draw(body3);
+        else if(pos==4&&jump==0&&slide!=0)window.draw(body5);
+
+        if(collisionbool)
+        {   collisiontime-=deltatime;
+            window.draw(collisionbody);
+            if(collisiontime<=0.0)collisionbool=false;
+        }
+
+
         window.draw(healthbarbody);
         window.draw(shieldbarbody);
 
@@ -1108,13 +1313,13 @@ int main()
 
         if(healthontimer>0.0&&healthon)
         {
-            window.draw(healthbody);
+           // window.draw(healthbody);
         }
         //Shield:
 
         if(shieldontimer>0.0&&shieldon)
         {
-            window.draw(shieldbody);
+            //window.draw(shieldbody);
         }
 
 
