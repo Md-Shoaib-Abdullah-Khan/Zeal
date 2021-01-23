@@ -388,6 +388,62 @@ int main()
    // enemyon.push_back(make_pair(6.5,false));
    // enemy.push_back(make_pair(1500.0,680.0));
 
+   //Enemy 1 initiation:
+    vector< pair <double,double>>enemy1;
+    vector<pair<double,bool>>enemy1on;
+    RectangleShape enemy1body(Vector2f(200.0f,200.0f));
+    Texture enemy1texture[10];
+
+    enemy1texture[0].loadFromFile("enemy1/0.png");
+    enemy1texture[1].loadFromFile("enemy1/1.png");
+    enemy1texture[2].loadFromFile("enemy1/2.png");
+    enemy1texture[3].loadFromFile("enemy1/3.png");
+    enemy1texture[4].loadFromFile("enemy1/4.png");
+    enemy1texture[5].loadFromFile("enemy1/5.png");
+    enemy1texture[6].loadFromFile("enemy1/6.png");
+    enemy1texture[7].loadFromFile("enemy1/7.png");
+    enemy1texture[8].loadFromFile("enemy1/8.png");
+    enemy1texture[9].loadFromFile("enemy1/9.png");
+
+
+    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1on.push_back(make_pair(1.0,false));
+
+    //Venom initiation:
+    vector< pair <double,double>>enemy1venom;
+    double enemy1venomtimer=1.0;
+    RectangleShape enemy1venombody(Vector2f(50.0f,50.0f));
+    Texture enemy1venomtexture;
+    enemy1venomtexture.loadFromFile("enemy1/venom/1.png");
+
+    //Enemy 4 initiation:
+    vector< pair <double,double>>enemy4;
+    vector<pair<double,bool>>enemy4on;
+    RectangleShape enemy4body(Vector2f(200.0f,200.0f));
+    Texture enemy4texture[10];
+
+    enemy4.push_back(make_pair(1500.0,600.0));
+    enemy4on.push_back(make_pair(1.0,false));
+
+    //Venom 1 initiation:
+    vector< pair <double,double>>enemy4venom;
+    double enemy4venomtimer=1.0;
+    RectangleShape enemy4venombody(Vector2f(50.0f,50.0f));
+    Texture enemy4venomtexture;
+    enemy4venomtexture.loadFromFile("enemy1/venom/1.png");
+
+    enemy4texture[0].loadFromFile("enemy1/0.png");
+    enemy4texture[1].loadFromFile("enemy1/1.png");
+    enemy4texture[2].loadFromFile("enemy1/2.png");
+    enemy4texture[3].loadFromFile("enemy1/3.png");
+    enemy4texture[4].loadFromFile("enemy1/4.png");
+    enemy4texture[5].loadFromFile("enemy1/5.png");
+    enemy4texture[6].loadFromFile("enemy1/6.png");
+    enemy4texture[7].loadFromFile("enemy1/7.png");
+    enemy4texture[8].loadFromFile("enemy1/8.png");
+    enemy4texture[9].loadFromFile("enemy1/9.png");
+
+
     RenderWindow window(sf::VideoMode(1500, 900), "SFML works!");
     RectangleShape body6(Vector2f(150.0f,150.0f));
     RectangleShape body5(Vector2f(130.0f,130.0f));
@@ -1120,8 +1176,41 @@ int main()
             }
         }
 
-        //Coin count update:
+        //enemy 1 venom update:
 
+        enemy1venomtimer-=deltatime;
+        enemy1venombody.setTexture(&enemy1venomtexture);
+
+        if(!enemy1.empty()&&enemy1venomtimer<=0)
+        {
+            for(int j=0;j<enemy1.size();j++)
+            {
+                if(enemy1on[j].second)
+                {
+                    enemy1venom.push_back(make_pair(enemy1[j].first+20,enemy1[j].second+40));
+                }
+
+            }
+            enemy1venomtimer=1.0;
+        }
+
+        //enemy 4 venom update:
+
+        enemy4venomtimer-=deltatime;
+        enemy4venombody.setTexture(&enemy4venomtexture);
+
+        if(!enemy4.empty()&&enemy4venomtimer<=0)
+        {
+            for(int j=0;j<enemy4.size();j++)
+            {
+                if(enemy4on[j].second)
+                {
+                    enemy4venom.push_back(make_pair(enemy4[j].first+20,enemy4[j].second+40));
+                }
+
+            }
+            enemy4venomtimer=1.0;
+        }
 
 
         window.clear(Color:: White);
@@ -1145,6 +1234,53 @@ int main()
                         bulletsprite2.setPosition(Vector2f(bullet[j].first,bullet[j].second));
                         window.draw(bulletsprite2);
                 }
+
+            }
+        }
+
+        //Venom:
+        if(!enemy1venom.empty())
+        {
+            for(int j=0;j<enemy1venom.size();j++)
+            {
+                if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
+                    {
+                        enemy1venom[j].first-=deltatime*speed;
+
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
+                    {
+                        enemy1venom[j].first+=deltatime*speed;
+
+                    }
+                    enemy1venom[j].second+=deltatime*speed;
+
+                enemy1venombody.setPosition(enemy1venom[j].first,enemy1venom[j].second);
+                window.draw(enemy1venombody);
+
+            }
+        }
+
+        //Enemy 4 Venom:
+        if(!enemy4venom.empty())
+        {
+            for(int j=0;j<enemy4venom.size();j++)
+            {
+                if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
+                    {
+                        enemy4venom[j].first-=deltatime*speed;
+
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
+                    {
+                        enemy4venom[j].first+=deltatime*speed;
+
+                    }
+                    enemy4venom[j].first-=deltatime*(speed);
+
+                enemy4venombody.setTexture(&enemy4venomtexture);
+                enemy4venombody.setPosition(enemy4venom[j].first,enemy4venom[j].second);
+                window.draw(enemy4venombody);
 
             }
         }
@@ -1175,6 +1311,65 @@ int main()
                     }
             }
         }
+
+        if(!enemy1.empty())
+        {
+            enemy1body.setTexture(&enemy1texture[i]);
+            for(int j=0;j<enemy1.size();j++)
+            {
+                if(stepcount>=enemy1on[j].first){enemy1on[j].second=true;}
+
+                if(enemy1on[j].second)
+                {
+                    enemy1[j].first-=deltatime*(speed);
+                    if(pos==1){enemy1[j].first+=.1;}
+                    if(pos==2){enemy1[j].first-=.5;}
+                }
+                if(enemy1[j].first<=0.0)
+                {
+                enemy1.erase(enemy1.begin());
+                enemy1on.erase(enemy1on.begin());
+
+                }
+
+                if(enemy1on[j].second)
+                    {
+                        enemy1body.setPosition(Vector2f(enemy1[j].first,enemy1[j].second));
+                        window.draw(enemy1body);
+                    }
+            }
+        }
+
+        //Enemy 4:
+
+        if(!enemy4.empty())
+        {
+            enemy4body.setTexture(&enemy4texture[i]);
+            for(int j=0;j<enemy4.size();j++)
+            {
+                if(stepcount>=enemy4on[j].first){enemy4on[j].second=true;}
+
+                if(enemy4on[j].second)
+                {
+                    enemy4[j].first-=deltatime*50;
+                    if(pos==1){enemy4[j].first+=.1;}
+                    if(pos==2){enemy4[j].first-=.5;}
+                }
+                if(enemy4[j].first<=0.0)
+                {
+                enemy4.erase(enemy1.begin());
+                enemy4on.erase(enemy1on.begin());
+
+                }
+
+                if(enemy4on[j].second)
+                    {
+                        enemy4body.setPosition(Vector2f(enemy4[j].first,enemy4[j].second));
+                        window.draw(enemy4body);
+                    }
+            }
+        }
+
         //Obstacle draw:
 
         //Log:
