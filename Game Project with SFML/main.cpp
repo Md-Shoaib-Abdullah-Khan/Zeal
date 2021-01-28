@@ -555,6 +555,17 @@ int main()
     RectangleShape enemy4body(Vector2f(150.0f,150.0f));
     Texture enemy4texture[10];
 
+    enemy4texture[0].loadFromFile("enemy4/0.png");
+    enemy4texture[1].loadFromFile("enemy4/1.png");
+    enemy4texture[2].loadFromFile("enemy4/2.png");
+    enemy4texture[3].loadFromFile("enemy4/3.png");
+    enemy4texture[4].loadFromFile("enemy4/4.png");
+    enemy4texture[5].loadFromFile("enemy4/5.png");
+    enemy4texture[6].loadFromFile("enemy4/6.png");
+    enemy4texture[7].loadFromFile("enemy4/7.png");
+    enemy4texture[8].loadFromFile("enemy4/8.png");
+    enemy4texture[9].loadFromFile("enemy4/9.png");
+
     enemy4.push_back(make_pair(1500.0,680.0));
     enemy4on.push_back(make_pair(117.5,false));
     enemy4.push_back(make_pair(1500.0,680.0));
@@ -581,8 +592,7 @@ int main()
     enemy4on.push_back(make_pair(193.5,false));
     enemy4.push_back(make_pair(1500.0,680.0));
     enemy4on.push_back(make_pair(198.0,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
-    enemy4on.push_back(make_pair(1.0,false));
+
 
     //Venom 1 initiation:
     vector< pair <double,double>>enemy4venom;
@@ -591,16 +601,129 @@ int main()
     Texture enemy4venomtexture;
     enemy4venomtexture.loadFromFile("enemy1/venom/1.png");
 
-    enemy4texture[0].loadFromFile("enemy4/0.png");
-    enemy4texture[1].loadFromFile("enemy4/1.png");
-    enemy4texture[2].loadFromFile("enemy4/2.png");
-    enemy4texture[3].loadFromFile("enemy4/3.png");
-    enemy4texture[4].loadFromFile("enemy4/4.png");
-    enemy4texture[5].loadFromFile("enemy4/5.png");
-    enemy4texture[6].loadFromFile("enemy4/6.png");
-    enemy4texture[7].loadFromFile("enemy4/7.png");
-    enemy4texture[8].loadFromFile("enemy4/8.png");
-    enemy4texture[9].loadFromFile("enemy4/9.png");
+    //Enemy boss initiation:
+    bool bossalive=true;
+    pair <double,double>enemybossxy;
+    pair<double,bool>enemybosson;
+    double enemyboss=0.0;
+    RectangleShape enemybossbody(Vector2f(450.0f,350.0f));
+    Texture enemybosstexture[35];
+
+    enemybossxy.first=1300.0;
+    enemybossxy.second=465.0;
+    enemybosson.first=210.0;
+    enemybosson.second=false;
+
+    enemybosstexture[0].loadFromFile("enemyboss/Shoot/0.png");
+    enemybosstexture[1].loadFromFile("enemyboss/Shoot/1.png");
+    enemybosstexture[2].loadFromFile("enemyboss/Shoot/2.png");
+    enemybosstexture[3].loadFromFile("enemyboss/Shoot/3.png");
+    enemybosstexture[4].loadFromFile("enemyboss/Shoot/4.png");
+    enemybosstexture[5].loadFromFile("enemyboss/Shoot/5.png");
+    enemybosstexture[6].loadFromFile("enemyboss/Shoot/6.png");
+    enemybosstexture[7].loadFromFile("enemyboss/Shoot/7.png");
+    enemybosstexture[8].loadFromFile("enemyboss/Shoot/8.png");
+    enemybosstexture[9].loadFromFile("enemyboss/Shoot/9.png");
+    enemybosstexture[10].loadFromFile("enemyboss/Shoot/10.png");
+    enemybosstexture[11].loadFromFile("enemyboss/Shoot/11.png");
+    enemybosstexture[12].loadFromFile("enemyboss/Shoot/12.png");
+    enemybosstexture[13].loadFromFile("enemyboss/Shoot/13.png");
+    enemybosstexture[14].loadFromFile("enemyboss/Shoot/14.png");
+    enemybosstexture[15].loadFromFile("enemyboss/Shoot/15.png");
+    enemybosstexture[16].loadFromFile("enemyboss/Shoot/16.png");
+    enemybosstexture[17].loadFromFile("enemyboss/Shoot/17.png");
+    enemybosstexture[18].loadFromFile("enemyboss/Shoot/18.png");
+    enemybosstexture[19].loadFromFile("enemyboss/Shoot/19.png");
+    enemybosstexture[20].loadFromFile("enemyboss/Shoot/20.png");
+    enemybosstexture[21].loadFromFile("enemyboss/Shoot/21.png");
+    enemybosstexture[22].loadFromFile("enemyboss/Shoot/22.png");
+    enemybosstexture[23].loadFromFile("enemyboss/Shoot/23.png");
+    enemybosstexture[24].loadFromFile("enemyboss/Shoot/24.png");
+    enemybosstexture[25].loadFromFile("enemyboss/Shoot/25.png");
+    enemybosstexture[26].loadFromFile("enemyboss/Shoot/26.png");
+    enemybosstexture[27].loadFromFile("enemyboss/Shoot/27.png");
+    enemybosstexture[28].loadFromFile("enemyboss/Shoot/28.png");
+    enemybosstexture[29].loadFromFile("enemyboss/Shoot/29.png");
+    enemybosstexture[30].loadFromFile("enemyboss/Shoot/30.png");
+    enemybosstexture[31].loadFromFile("enemyboss/Shoot/31.png");
+    enemybosstexture[32].loadFromFile("enemyboss/Shoot/32.png");
+    enemybosstexture[33].loadFromFile("enemyboss/Shoot/33.png");
+    enemybosstexture[34].loadFromFile("enemyboss/Shoot/34.png");
+
+    //Enemy boss shooting initiation:
+    vector< pair <double,double>>enemybossshoot;
+
+    bool rockon=true;
+
+    RectangleShape enemybossshootbody(Vector2f(50.0f,50.0f));
+    Texture enemybossshoottexture;
+    enemybossshoottexture.loadFromFile("enemyboss/shoot/rock.png");
+
+    //enemy boss health initiation:
+
+    RectangleShape enemybosshealthbarbody(Vector2f(300.0f,50.0f));
+    Texture enemybosshealthbartexture[11];
+    double enemybosshealth=1000.0;
+    enemybosshealthbartexture[0].loadFromFile("enemyboss/health/0.png");
+    enemybosshealthbartexture[1].loadFromFile("enemyboss/health/1.png");
+    enemybosshealthbartexture[2].loadFromFile("enemyboss/health/2.png");
+    enemybosshealthbartexture[3].loadFromFile("enemyboss/health/3.png");
+    enemybosshealthbartexture[4].loadFromFile("enemyboss/health/4.png");
+    enemybosshealthbartexture[5].loadFromFile("enemyboss/health/5.png");
+    enemybosshealthbartexture[6].loadFromFile("enemyboss/health/6.png");
+    enemybosshealthbartexture[7].loadFromFile("enemyboss/health/7.png");
+    enemybosshealthbartexture[8].loadFromFile("enemyboss/health/8.png");
+    enemybosshealthbartexture[9].loadFromFile("enemyboss/health/9.png");
+    enemybosshealthbartexture[10].loadFromFile("enemyboss/health/10.png");
+
+    //Cave initiation:
+    RectangleShape cavebody(Vector2f(600.0f,600.0f));
+    Texture cavetexture;
+    cavetexture.loadFromFile("cave.png");
+    pair <double,double>cave;
+    pair<double,bool>caveon;
+
+    cave.first=1300;
+    cave.second=300.0;
+    caveon.first=1.0;
+    caveon.second=false;
+
+    //Puzzle on:
+    RectangleShape puzzlebody(Vector2f(1500.0f,750.0f));
+    Texture puzzletexture;
+    puzzletexture.loadFromFile("puzzle.png");
+    pair <double,double>puzzle;
+    pair <double,double>puzzlea;
+    pair <double,double>puzzleb;
+    pair <double,double>puzzlec;
+    pair<double,bool>puzzleon;
+
+    puzzle.first=0.0;
+    puzzle.second=150.0;
+    puzzleon.first=3.0;
+    puzzleon.second=false;
+
+    RectangleShape puzzleabody(Vector2f(300.0f,300.0f));
+    Texture puzzleabctexture[4];
+    puzzlea.first=0.0;
+    puzzlea.second=500.0;
+
+    RectangleShape puzzlebbody(Vector2f(300.0f,300.0f));
+    puzzleb.first=400.0;
+    puzzleb.second=500.0;
+
+    RectangleShape puzzlecbody(Vector2f(300.0f,300.0f));
+    puzzlec.first=820.0;
+    puzzlec.second=500.0;
+
+    puzzleabctexture[0].loadFromFile("0.png");
+    puzzleabctexture[1].loadFromFile("1.png");
+    puzzleabctexture[2].loadFromFile("2.png");
+    puzzleabctexture[3].loadFromFile("3.png");
+
+    int a=0,b=0,c=0;
+    bool mouseclick=false;
+
 
 
     RenderWindow window(sf::VideoMode(1500, 900), "SFML works!");
@@ -745,6 +868,7 @@ int main()
             }
             if(event.type == Event::MouseButtonPressed && event.key.code == Mouse::Left)
             {
+                mouseclick=true;
             if(faceright)
             {
                 bullet.push_back(make_pair(800.0,y+50));
@@ -1017,6 +1141,97 @@ int main()
                 }
             }
         }
+        //enemy 4 venom check:
+        if(!enemy4venom.empty())
+        {
+            for(int j=0;j<enemy4venom.size();j++)
+            {
+                if(enemy4venom[j].first>=700&&enemy4venom[j].first<=800&&enemy4venom[j].second>=y&&enemy4venom[j].first<=y+100)
+                {
+                    collisionbody.setPosition(enemy4venom[j].first,enemy4venom[j].second);
+                collisionbool=true;
+                collisiontime=.5;
+                    enemy4venom.erase(enemy4venom.begin()+j);
+
+
+                    if(shield>0)
+                    {
+                        shield--;
+                    }
+                    else if(health>0)
+                    {
+                        health--;
+                    }
+                    else{gameover=true;}
+
+                }
+            }
+        }
+        //enemy 1 venom check:
+        if(!enemy1venom.empty())
+        {
+            for(int j=0;j<enemy1venom.size();j++)
+            {
+                if(enemy1venom[j].first>=700&&enemy1venom[j].first<=750&&enemy1venom[j].second>=y&&enemy1venom[j].first<=y+100)
+                {
+                    collisionbody.setPosition(enemy1venom[j].first,enemy1venom[j].second);
+                collisionbool=true;
+                collisiontime=.5;
+                    enemy1venom.erase(enemy1venom.begin()+j);
+
+
+                    if(shield>0)
+                    {
+                        shield--;
+                    }
+                    else if(health>0)
+                    {
+                        health--;
+                    }
+                    else{gameover=true;}
+
+                }
+            }
+        }
+
+        //enemy boss shoot check:
+        if(!enemybossshoot.empty())
+        {
+            for(int j=0;j<enemybossshoot.size();j++)
+            {
+                if(enemybossshoot[j].first>=700&&enemybossshoot[j].first<=750&&enemybossshoot[j].second>=y&&enemybossshoot[j].first<=y+100)
+                {
+                    collisionbody.setPosition(enemybossshoot[j].first,enemybossshoot[j].second);
+                collisionbool=true;
+                collisiontime=.5;
+                    enemybossshoot.erase(enemybossshoot.begin()+j);
+
+
+                    if(shield>0)
+                    {
+                        shield--;
+                    }
+                    else if(health>0)
+                    {
+                        health--;
+                    }
+                    else{gameover=true;}
+
+                }
+            }
+        }
+
+        //Enemy boss check:
+
+        if((ceil(enemybossxy.first)==750||ceil(enemybossxy.first)==751||ceil(enemybossxy.first)==752)&&faceright)
+            {
+                steprightonx=false;
+                cout<<ceil(enemybossxy.first)<<endl;
+
+        }
+
+
+
 
         //Collision check:
 
@@ -1067,7 +1282,23 @@ int main()
 
                    }
             }
+
+            if((bullet[j].first>=enemybossxy.first-10&&bullet[j].first<=enemybossxy.first+10)&&(bullet[j].second>=500.0&&bullet[j].second<=730.0)&&enemybosson.second)
+                   {
+                collisionbody.setPosition(bullet[j].first,bullet[j].second);
+                collisionbool=true;
+                collisiontime=.5;
+
+                    bullet.erase(bullet.begin()+j);
+                bulletface.erase(bulletface.begin()+j);
+
+                if(enemybosshealth>=0){enemybosshealth-=deltatime*200;}
+                else{bossalive=false;}
+
+                   }
+
         }
+
 
         //health check:
         if(healthx>=700&&healthx<=750.0&&y>=healthy-50&&y<=healthy+100&&healthon)
@@ -1467,6 +1698,84 @@ int main()
             enemy4venomtimer=1.0;
         }
 
+        //enemy boss shoot update:
+
+
+        if((int)enemyboss==20&&rockon&&bossalive)
+        {
+            enemybossshoot.push_back(make_pair(enemybossxy.first+20,enemybossxy.second+200));
+            enemy1.push_back(make_pair(1500.0,100.0));
+            enemy1on.push_back(make_pair(200.0,true));
+            rockon=false;
+        }
+        if((int)enemyboss==0){rockon=true;}
+
+        //Cave update:
+
+        if(stepcount>=1.0)
+            {
+                caveon.second=true;
+            }
+            if(caveon.second)
+            {
+            if(Keyboard::isKeyPressed(Keyboard::D)){cave.first-=deltatime*speed;}
+            else if(Keyboard::isKeyPressed(Keyboard::A)){cave.first+=deltatime*speed;}
+            cavebody.setTexture(&cavetexture);
+            cavebody.setPosition(cave.first,cave.second);
+
+            }
+            if(stepcount>=puzzleon.first)
+            {
+                puzzleon.second=true;
+            }
+
+            puzzlebody.setPosition(puzzle.first,puzzle.second);
+            puzzleabody.setPosition(puzzlea.first,puzzlea.second);
+            puzzlebbody.setPosition(puzzleb.first,puzzleb.second);
+            puzzlecbody.setPosition(puzzlec.first,puzzlec.second);
+            puzzlebody.setTexture(&puzzletexture);
+
+
+            if ( mouseclick&&Mouse::getPosition(window).x >=puzzlea.first && Mouse::getPosition(window).x <= puzzlea.first + 300.0 &&  Mouse::getPosition(window).y > puzzlea.second &&  Mouse::getPosition(window).y <= puzzlea.second + 300.0)
+            {
+                cout<<"a"<<endl;
+                a++;
+
+            }
+            else if ( mouseclick&&Mouse::getPosition(window).x >=puzzleb.first && Mouse::getPosition(window).x <= puzzleb.first + 300.0 &&  Mouse::getPosition(window).y > puzzleb.second &&  Mouse::getPosition(window).y <= puzzleb.second + 300.0)
+            {
+                cout<<"b"<<endl;
+                b++;
+
+            }
+            else if ( mouseclick&&Mouse::getPosition(window).x >=puzzlec.first && Mouse::getPosition(window).x <= puzzlec.first + 300.0 &&  Mouse::getPosition(window).y > puzzlec.second &&  Mouse::getPosition(window).y <= puzzlec.second + 300.0)
+            {
+                cout<<"c"<<endl;
+                c++;
+
+
+            }
+
+            puzzleabody.setTexture(&puzzleabctexture[a]);
+            puzzlebbody.setTexture(&puzzleabctexture[b]);
+            puzzlecbody.setTexture(&puzzleabctexture[c]);
+
+
+
+            if(a>=4){a=0;}
+            if(b>=4){b=0;}
+            if(c>=4){c=0;}
+            if(a==3&&b==1&&c==0)
+            {
+                    puzzlesolved=true;
+                    cout<<"Solved"<<endl;
+            }
+
+            mouseclick=false;
+
+
+
+
         window.setFramerateLimit(120);
 
 
@@ -1664,6 +1973,43 @@ int main()
             }
         }
 
+        //Enemy boss:
+        if(stepcount>=enemybosson.first&&bossalive){enemybosson.second=true;}
+        if(enemybosson.second&&bossalive)
+        {
+            enemyboss+=deltatime*10;
+            if(enemyboss>=35.0){enemyboss=0.0;}
+
+
+            enemybossbody.setTexture(&enemybosstexture[(int)enemyboss]);
+            enemybossbody.setPosition(enemybossxy.first,enemybossxy.second);
+            window.draw(enemybossbody);
+
+            enemybosshealthbarbody.setTexture(&enemybosshealthbartexture[(int)(enemybosshealth/100.0)]);
+            enemybosshealthbarbody.setPosition(enemybossxy.first+50,enemybossxy.second-50);
+            window.draw(enemybosshealthbarbody);
+
+            if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx){enemybossxy.first+=deltatime*speed;}
+            if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx){enemybossxy.first-=deltatime*speed;}
+        }
+
+        //Enemy boss shoot:
+        if(!enemybossshoot.empty())
+        {
+            for(int j=0;j<enemybossshoot.size();j++)
+            {
+                if(Keyboard::isKeyPressed(Keyboard::D)){enemybossshoot[j].first-=deltatime*speed;}
+                        else if(Keyboard::isKeyPressed(Keyboard::A)){enemybossshoot[j].first-=deltatime;}
+                    enemybossshoot[j].first-=deltatime*(speed+100);
+
+                enemybossshootbody.setTexture(&enemybossshoottexture);
+                enemybossshootbody.setPosition(enemybossshoot[j].first,enemybossshoot[j].second);
+                window.draw(enemybossshootbody);
+
+            }
+        }
+
+
         //Obstacle draw:
 
         //Log:
@@ -1810,6 +2156,13 @@ int main()
         {
             window.draw(shieldbody);
         }
+
+        if(caveon.second){window.draw(cavebody);}
+        if(puzzleon.second){window.draw(puzzlebody);}
+        if(puzzleon.second){window.draw(puzzleabody);}
+        if(puzzleon.second){window.draw(puzzlebbody);}
+        if(puzzleon.second){window.draw(puzzlecbody);}
+
 
 
 
