@@ -5,6 +5,7 @@
 #include<iostream>
 #include<vector>
 #include<cmath>
+#include<sstream>
 
 using namespace sf;
 using namespace std;
@@ -15,6 +16,23 @@ int main()
 
     //Gameover initiation:
     bool gameover=false;
+    Texture gameovertexture;
+    gameovertexture.loadFromFile("Gameover&Gamewin/Gameover.png");
+    RectangleShape gameoverbody(Vector2f(1950.0f,1100.0f));
+
+    //Gamewin initiation
+    bool gamewin=false;
+
+    Texture gamewintexture;
+    gamewintexture.loadFromFile("Gameover&Gamewin/Gamewin.png");
+    RectangleShape gamewinbody(Vector2f(1950.0f,1100.0f));
+
+    //Text initiation:
+    Font font;
+
+    Text text;
+
+
 
     //Obstacle check bool:
     bool steprightonx=true;
@@ -42,7 +60,7 @@ int main()
     bool shieldon=false;
 
     //health bar initiation:
-    RectangleShape healthbarbody(Vector2f(200.0f,50.0f));
+    RectangleShape healthbarbody(Vector2f(300.0f,50.0f));
     Texture healthbar[6];
     healthbar[0].loadFromFile("others/health&shield/health_bar000.png");
     healthbar[1].loadFromFile("others/health&shield/health_bar001.png");
@@ -52,7 +70,7 @@ int main()
     healthbar[5].loadFromFile("others/health&shield/health_bar005.png");
 
     //shield bar initiation:
-    RectangleShape shieldbarbody(Vector2f(200.0f,50.0f));
+    RectangleShape shieldbarbody(Vector2f(300.0f,50.0f));
     Texture shieldbar[6];
     shieldbar[0].loadFromFile("others/health&shield/shield_bar000.png");
     shieldbar[1].loadFromFile("others/health&shield/shield_bar001.png");
@@ -96,74 +114,122 @@ int main()
     vector<pair<double,bool>>cointimer;
     vector<pair<double,double>>coin;
 
+    cointimer.push_back(make_pair(0.0,false));
+    coin.push_back(make_pair(900.0,10.0));
     cointimer.push_back(make_pair(2.0,false));
-    coin.push_back(make_pair(1500.0,700.0));
-    cointimer.push_back(make_pair(10.0,false));
-    coin.push_back(make_pair(1500.0,700.0));
-    cointimer.push_back(make_pair(8.2,false));
-    coin.push_back(make_pair(1500.0,500.0));
+    coin.push_back(make_pair(2000.0,850.0));
     cointimer.push_back(make_pair(5.0,false));
-    coin.push_back(make_pair(1500.0,700.0));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(10.0,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(8.2,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(16.0,false));
+    coin.push_back(make_pair(2000.0,850.0));
     cointimer.push_back(make_pair(24.3,false));
-    coin.push_back(make_pair(1500.0,500.0));
+    coin.push_back(make_pair(2000.0,650.0));
     cointimer.push_back(make_pair(20.3,false));
-    coin.push_back(make_pair(1500.0,500.0));
+    coin.push_back(make_pair(2000.0,650.0));
     cointimer.push_back(make_pair(28.3,false));
-    coin.push_back(make_pair(1500.0,500.0));
+    coin.push_back(make_pair(2000.0,650.0));
     cointimer.push_back(make_pair(33.2,false));
-    coin.push_back(make_pair(1500.0,500.0));
+    coin.push_back(make_pair(2000.0,650.0));
     cointimer.push_back(make_pair(42.7,false));
-    coin.push_back(make_pair(1500.0,500.0));
+    coin.push_back(make_pair(2000.0,650.0));
     cointimer.push_back(make_pair(46.7,false));
-    coin.push_back(make_pair(1500.0,500.0));
+    coin.push_back(make_pair(2000.0,650.0));
     cointimer.push_back(make_pair(44.6,false));
-    coin.push_back(make_pair(1500.0,300.0));
+    coin.push_back(make_pair(2000.0,450.0));
     cointimer.push_back(make_pair(44.8,false));
-    coin.push_back(make_pair(1500.0,300.0));
+    coin.push_back(make_pair(2000.0,450.0));
     cointimer.push_back(make_pair(41.5,false));
-    coin.push_back(make_pair(1500.0,700.0));
+    coin.push_back(make_pair(2000.0,850.0));
     cointimer.push_back(make_pair(43.5,false));
-    coin.push_back(make_pair(1500.0,700.0));
+    coin.push_back(make_pair(2000.0,850.0));
     cointimer.push_back(make_pair(45.5,false));
-    coin.push_back(make_pair(1500.0,700.0));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(54.2,false));
+    coin.push_back(make_pair(2000.0,600.0));
     cointimer.push_back(make_pair(47.5,false));
-    coin.push_back(make_pair(1500.0,700.0));
+    coin.push_back(make_pair(2000.0,850.0));
     cointimer.push_back(make_pair(62.2,false));
-    coin.push_back(make_pair(1500.0,400.0));
+    coin.push_back(make_pair(2000.0,550.0));
     cointimer.push_back(make_pair(64.2,false));
-    coin.push_back(make_pair(1500.0,200.0));
+    coin.push_back(make_pair(2000,350.0));
     cointimer.push_back(make_pair(66.2,false));
-    coin.push_back(make_pair(1500.0,400.0));
+    coin.push_back(make_pair(2000,550.0));
     cointimer.push_back(make_pair(68.2,false));
-    coin.push_back(make_pair(1500.0,600.0));
+    coin.push_back(make_pair(2000,750.0));
     cointimer.push_back(make_pair(70.2,false));
-    coin.push_back(make_pair(1500.0,400.0));
+    coin.push_back(make_pair(2000,550.0));
     cointimer.push_back(make_pair(72.2,false));
-    coin.push_back(make_pair(1500.0,200.0));
+    coin.push_back(make_pair(2000,350.0));
     cointimer.push_back(make_pair(73.2,false));
-    coin.push_back(make_pair(1500.0,200.0));
+    coin.push_back(make_pair(2000,350.0));
     cointimer.push_back(make_pair(74.2,false));
-    coin.push_back(make_pair(1500.0,200.0));
+    coin.push_back(make_pair(2000,350.0));
     cointimer.push_back(make_pair(75.2,false));
-    coin.push_back(make_pair(1500.0,200.0));
+    coin.push_back(make_pair(2000,350.0));
     cointimer.push_back(make_pair(72.2,false));
-    coin.push_back(make_pair(1500.0,600.0));
+    coin.push_back(make_pair(2000,750.0));
     cointimer.push_back(make_pair(73.2,false));
-    coin.push_back(make_pair(1500.0,600.0));
+    coin.push_back(make_pair(2000,750.0));
     cointimer.push_back(make_pair(74.2,false));
-    coin.push_back(make_pair(1500.0,600.0));
+    coin.push_back(make_pair(2000,750.0));
     cointimer.push_back(make_pair(75.2,false));
-    coin.push_back(make_pair(1500.0,600.0));
+    coin.push_back(make_pair(2000,750.0));
     cointimer.push_back(make_pair(77.2,false));
-    coin.push_back(make_pair(1500.0,400.0));
+    coin.push_back(make_pair(2000,550.0));
     cointimer.push_back(make_pair(79.2,false));
-    coin.push_back(make_pair(1500.0,200.0));
+    coin.push_back(make_pair(2000.0,350.0));
     cointimer.push_back(make_pair(81.2,false));
-    coin.push_back(make_pair(1500.0,400.0));
+    coin.push_back(make_pair(2000.0,550.0));
     cointimer.push_back(make_pair(83.2,false));
-    coin.push_back(make_pair(1500.0,600.0));
+    coin.push_back(make_pair(2000.0,750.0));
     cointimer.push_back(make_pair(85.2,false));
-    coin.push_back(make_pair(1500.0,400.0));
+    coin.push_back(make_pair(2000.0,550.0));
+    cointimer.push_back(make_pair(90.2,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(93.0,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(95.2,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(110.2,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(142.2,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(141.2,false));
+    coin.push_back(make_pair(2000.0,450.0));
+    cointimer.push_back(make_pair(140.2,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(145.0,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(150.2,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(165.2,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(170.0,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(172.0,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(174.0,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(176.0,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(178.0,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(180.0,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(182.0,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(184.0,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(186.0,false));
+    coin.push_back(make_pair(2000.0,650.0));
+    cointimer.push_back(make_pair(200.0,false));
+    coin.push_back(make_pair(2000.0,850.0));
+    cointimer.push_back(make_pair(200.0,false));
+    coin.push_back(make_pair(2000.0,650.0));
 
 
 
@@ -179,9 +245,13 @@ int main()
 
 
     obstaclelogtimer.push_back(make_pair(4.8,false));
-    obstaclelog.push_back(make_pair(1500.0,720.0));
-   // obstaclelogtimer.push_back(make_pair(5.0,false));
-    //obstaclelog.push_back(make_pair(1500.0,720.0));
+    obstaclelog.push_back(make_pair(2000,870.0));
+    obstaclelogtimer.push_back(make_pair(90.0,false));
+    obstaclelog.push_back(make_pair(2000.0,870.0));
+    obstaclelogtimer.push_back(make_pair(95.0,false));
+    obstaclelog.push_back(make_pair(2000.0,870.0));
+    obstaclelogtimer.push_back(make_pair(110.0,false));
+    obstaclelog.push_back(make_pair(2000.0,870.0));
 
     //stair:
     RectangleShape obstaclebodystair(Vector2f(150.0f,50.0f));
@@ -190,79 +260,85 @@ int main()
     vector<pair<double,double>>obstaclestair;
 
     obstaclestairtimer.push_back(make_pair(8.0,false));
-    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestair.push_back(make_pair(2000.0,750.0));
     obstaclestairtimer.push_back(make_pair(24.0,false));
-    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestair.push_back(make_pair(2000.0,750.0));
     obstaclestairtimer.push_back(make_pair(33.0,false));
-    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestair.push_back(make_pair(2000.0,750.0));
     obstaclestairtimer.push_back(make_pair(42.5,false));
-    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestair.push_back(make_pair(2000.0,750.0));
     obstaclestairtimer.push_back(make_pair(44.5,false));
-    obstaclestair.push_back(make_pair(1500.0,400.0));
+    obstaclestair.push_back(make_pair(2000.0,550.0));
     obstaclestairtimer.push_back(make_pair(46.5,false));
-    obstaclestair.push_back(make_pair(1500.0,600.0));
+    obstaclestair.push_back(make_pair(2000.0,750.0));
     obstaclestairtimer.push_back(make_pair(54.0,false));
-    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestair.push_back(make_pair(2000.0,650.0));
     obstaclestairtimer.push_back(make_pair(62.0,false));
-    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestair.push_back(make_pair(2000.0,650.0));
     obstaclestairtimer.push_back(make_pair(64.0,false));
-    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestair.push_back(make_pair(2000.0,450.0));
     obstaclestairtimer.push_back(make_pair(66.0,false));
-    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestair.push_back(make_pair(2000.0,650.0));
     obstaclestairtimer.push_back(make_pair(68.0,false));
-    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestair.push_back(make_pair(2000.0,850.0));
     obstaclestairtimer.push_back(make_pair(70.0,false));
-    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestair.push_back(make_pair(2000.0,650.0));
     obstaclestairtimer.push_back(make_pair(72.0,false));
-    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestair.push_back(make_pair(2000.0,450.0));
     obstaclestairtimer.push_back(make_pair(72.5,false));
-    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestair.push_back(make_pair(2000.0,450.0));
     obstaclestairtimer.push_back(make_pair(73.0,false));
-    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestair.push_back(make_pair(2000.0,450.0));
     obstaclestairtimer.push_back(make_pair(73.5,false));
-    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestair.push_back(make_pair(2000.0,450.0));
     obstaclestairtimer.push_back(make_pair(74.0,false));
-    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestair.push_back(make_pair(2000.0,450.0));
     obstaclestairtimer.push_back(make_pair(74.5,false));
-    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestair.push_back(make_pair(2000.0,450.0));
     obstaclestairtimer.push_back(make_pair(75.0,false));
-    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestair.push_back(make_pair(2000.0,450.0));
     obstaclestairtimer.push_back(make_pair(72.0,false));
-    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestair.push_back(make_pair(2000.0,850.0));
     obstaclestairtimer.push_back(make_pair(72.5,false));
-    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestair.push_back(make_pair(2000.0,850.0));
     obstaclestairtimer.push_back(make_pair(73.0,false));
-    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestair.push_back(make_pair(2000.0,850.0));
     obstaclestairtimer.push_back(make_pair(73.5,false));
-    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestair.push_back(make_pair(2000.0,850.0));
     obstaclestairtimer.push_back(make_pair(74.0,false));
-    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestair.push_back(make_pair(2000.0,850.0));
     obstaclestairtimer.push_back(make_pair(74.5,false));
-    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestair.push_back(make_pair(2000.0,850.0));
     obstaclestairtimer.push_back(make_pair(75.0,false));
-    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestair.push_back(make_pair(2000.0,850.0));
     obstaclestairtimer.push_back(make_pair(77.0,false));
-    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestair.push_back(make_pair(2000.0,650.0));
     obstaclestairtimer.push_back(make_pair(79.0,false));
-    obstaclestair.push_back(make_pair(1500.0,300.0));
+    obstaclestair.push_back(make_pair(2000.0,450.0));
     obstaclestairtimer.push_back(make_pair(81.0,false));
-    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestair.push_back(make_pair(2000.0,650.0));
     obstaclestairtimer.push_back(make_pair(83.0,false));
-    obstaclestair.push_back(make_pair(1500.0,700.0));
+    obstaclestair.push_back(make_pair(2000.0,850.0));
     obstaclestairtimer.push_back(make_pair(85.0,false));
-    obstaclestair.push_back(make_pair(1500.0,500.0));
+    obstaclestair.push_back(make_pair(2000.0,650.0));
+    obstaclestairtimer.push_back(make_pair(140.0,false));
+    obstaclestair.push_back(make_pair(2000.0,750.0));
+    obstaclestairtimer.push_back(make_pair(142.0,false));
+    obstaclestair.push_back(make_pair(2000.0,750.0));
 
 
 
 
     //Slide:
-    obstacletexture[2].loadFromFile("obstacle/slide.png");
+    obstacletexture[2].loadFromFile("obstacle/slide2.png");
     RectangleShape obstacleslidebody(Vector2f(500.0f,500.0f));
     vector<pair<double,bool>>obstacleslidetimer;
     vector<pair<double,double>>obstacleslide;
 
     obstacleslidetimer.push_back(make_pair(15,false));
-    obstacleslide.push_back(make_pair(1500.0,350.0));
+    obstacleslide.push_back(make_pair(2000.0,500.0));
+    obstacleslidetimer.push_back(make_pair(92,false));
+    obstacleslide.push_back(make_pair(2000.0,500.0));
 
     //rock:
     RectangleShape obstaclerockbody(Vector2f(200.0f,200.0f));
@@ -271,13 +347,15 @@ int main()
     vector<pair<double,double>>obstaclerock;
 
     obstaclerocktimer.push_back(make_pair(52.0,false));
-    obstaclerock.push_back(make_pair(1500.0,700.0));
+    obstaclerock.push_back(make_pair(2000.0,850.0));
     obstaclerocktimer.push_back(make_pair(56.0,false));
-    obstaclerock.push_back(make_pair(1500.0,700.0));
+    obstaclerock.push_back(make_pair(2000.0,850.0));
     obstaclerocktimer.push_back(make_pair(60.0,false));
-    obstaclerock.push_back(make_pair(1500.0,700.0));
+    obstaclerock.push_back(make_pair(2000.0,850.0));
     obstaclerocktimer.push_back(make_pair(87.0,false));
-    obstaclerock.push_back(make_pair(1500.0,700.0));
+    obstaclerock.push_back(make_pair(2000.0,850.0));
+    obstaclerocktimer.push_back(make_pair(165.0,false));
+    obstaclerock.push_back(make_pair(2000.0,850.0));
 
     //river:
     RectangleShape obstacleriverbody(Vector2f(250.0f,250.0f));
@@ -286,83 +364,83 @@ int main()
     vector<pair<double,double>>obstacleriver;
 
     obstaclerivertimer.push_back(make_pair(20.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(61.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(62.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(63.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(64.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(65.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(66.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(67.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(68.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(69.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(70.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(71.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(72.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(73.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(74.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(75.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(76.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(77.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(78.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(79.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(80.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(81.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(82.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(83.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(84.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(85.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
     obstaclerivertimer.push_back(make_pair(86.0,false));
-    obstacleriver.push_back(make_pair(1500.0,660.0));
+    obstacleriver.push_back(make_pair(2000.0,810.0));
 
 
     //hole:
-    RectangleShape obstacleholebody(Vector2f(250.0f,250.0f));
+    RectangleShape obstacleholebody(Vector2f(250.0f,400.0f));
     obstacletexture[5].loadFromFile("obstacle/hole.png");
     vector<pair<double,bool>>obstacleholetimer;
     vector<pair<double,double>>obstaclehole;
 
     obstacleholetimer.push_back(make_pair(28.0,false));
-    obstaclehole.push_back(make_pair(1500.0,810.0));
+    obstaclehole.push_back(make_pair(2000.0,670.0));
     obstacleholetimer.push_back(make_pair(32.0,false));
-    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstaclehole.push_back(make_pair(2000.0,670.0));
     obstacleholetimer.push_back(make_pair(33.0,false));
-    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstaclehole.push_back(make_pair(2000.0,670.0));
     obstacleholetimer.push_back(make_pair(40.0,false));
-    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstaclehole.push_back(make_pair(2000.0,670.0));
     obstacleholetimer.push_back(make_pair(42.0,false));
-    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstaclehole.push_back(make_pair(2000.0,670.0));
     obstacleholetimer.push_back(make_pair(44.0,false));
-    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstaclehole.push_back(make_pair(2000.0,670.0));
     obstacleholetimer.push_back(make_pair(46.0,false));
-    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstaclehole.push_back(make_pair(2000.0,670.0));
     obstacleholetimer.push_back(make_pair(48.0,false));
-    obstaclehole.push_back(make_pair(1500.0,660.0));
+    obstaclehole.push_back(make_pair(2000.0,670.0));
 
 
 
@@ -372,63 +450,63 @@ int main()
     vector< pair <double,double>>enemy;
     vector<pair<double,bool>>enemyon;
 
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(101.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(102.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(105.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(105.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(105.5,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(105.7,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
      enemyon.push_back(make_pair(107.6,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(108.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(110.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(112.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(117.0,false));
-   enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(119.6,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(121.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(122.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(125.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(135.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(135.5,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(137.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
      enemyon.push_back(make_pair(163.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(175.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(176.2,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
    enemyon.push_back(make_pair(178.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(182.7,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(187.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(189.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(191.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(192.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(194.0,false));
-    enemy.push_back(make_pair(1500.0,680.0));
+    enemy.push_back(make_pair(2000.0,830.0));
     enemyon.push_back(make_pair(199.0,false));
 
    //Enemy 1 initiation:
@@ -449,31 +527,31 @@ int main()
     enemy1texture[9].loadFromFile("enemy1/9.png");
 
 
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(108.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(115.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(120.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(130.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(131.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(133.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(161.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(162.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(162.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(173.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(185.0,false));
-    enemy1.push_back(make_pair(1500.0,100.0));
+    enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(195.0,false));
-     enemy1.push_back(make_pair(1500.0,100.0));
+     enemy1.push_back(make_pair(2000.0,250.0));
     enemy1on.push_back(make_pair(200.0,false));
 
     //Venom initiation:
@@ -501,51 +579,51 @@ int main()
     enemy2texture[9].loadFromFile("enemy2/9.png");
 
 
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(107.2,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(107.5,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(107.8,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(108.7,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(108.9,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(113.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(115.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(116.5,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(118.5,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(123.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(124.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(154.0,false));
-     enemy2.push_back(make_pair(1500.0,680.0));
+     enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(155.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(158.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(159.0,false));
-     enemy2.push_back(make_pair(1500.0,680.0));
+     enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(160.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(164.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(180.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(184.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(185.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(188.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(196.0,false));
-    enemy2.push_back(make_pair(1500.0,680.0));
+    enemy2.push_back(make_pair(2000.0,830.0));
     enemy2on.push_back(make_pair(197.0,false));
 
 
@@ -566,31 +644,31 @@ int main()
     enemy4texture[8].loadFromFile("enemy4/8.png");
     enemy4texture[9].loadFromFile("enemy4/9.png");
 
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(117.5,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(120.0,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(126.5,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(127.5,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(134.0,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(150.0,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(151.0,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(152.0,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(165.5,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(186.5,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(192.5,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(193.5,false));
-    enemy4.push_back(make_pair(1500.0,680.0));
+    enemy4.push_back(make_pair(2000.0,830.0));
     enemy4on.push_back(make_pair(198.0,false));
 
 
@@ -609,8 +687,8 @@ int main()
     RectangleShape enemybossbody(Vector2f(450.0f,350.0f));
     Texture enemybosstexture[35];
 
-    enemybossxy.first=1300.0;
-    enemybossxy.second=465.0;
+    enemybossxy.first=2000.0;
+    enemybossxy.second=650.0;
     enemybosson.first=210.0;
     enemybosson.second=false;
 
@@ -680,13 +758,21 @@ int main()
     RectangleShape cavebody(Vector2f(600.0f,600.0f));
     Texture cavetexture;
     cavetexture.loadFromFile("cave.png");
+
     pair <double,double>cave;
     pair<double,bool>caveon;
 
-    cave.first=1300;
-    cave.second=300.0;
-    caveon.first=1.0;
+    cave.first=2000;
+    cave.second=450.0;
+    caveon.first=220.0;
     caveon.second=false;
+
+    //Infinity stone
+    bool infinitystoneon=false;
+     Texture infinitystonetexture;
+    infinitystonetexture.loadFromFile("infinitystone.png");
+    RectangleShape infinitystonebody(Vector2f(620.0f,540.0f));
+
 
     //Puzzle on:
     RectangleShape puzzlebody(Vector2f(1500.0f,750.0f));
@@ -697,10 +783,11 @@ int main()
     pair <double,double>puzzleb;
     pair <double,double>puzzlec;
     pair<double,bool>puzzleon;
+    bool puzzlesolved=false;
 
     puzzle.first=0.0;
     puzzle.second=150.0;
-    puzzleon.first=3.0;
+    puzzleon.first=227.0;
     puzzleon.second=false;
 
     RectangleShape puzzleabody(Vector2f(300.0f,300.0f));
@@ -726,7 +813,7 @@ int main()
 
 
 
-    RenderWindow window(sf::VideoMode(1500, 900), "SFML works!");
+    RenderWindow window(sf::VideoMode(1500, 900), "SFML works!",Style::Fullscreen);
     RectangleShape body6(Vector2f(150.0f,150.0f));
     RectangleShape body5(Vector2f(130.0f,130.0f));
     RectangleShape body2(Vector2f(150.0f,150.0f));
@@ -736,21 +823,38 @@ int main()
     RectangleShape body(Vector2f(150.0f,150.0f));
      RectangleShape collisionbody(Vector2f(150.0f,150.0f));
 
-    Texture predator,playertexture3[10],playertexture1[10],playertexture2[10],playertexture4[10],playertexture5[10],playertexture6[10],playertexture7[10],playertexture8[9],ex,ex1,bullet1,bullet2,collision;
+    Texture predator,background3texture,background5texture,playertexture3[10],playerdeathtexture[10],playertexture1[10],playertexture2[10],playertexture4[10],playertexture5[10],playertexture6[10],playertexture7[10],playertexture8[9],ex,ex1,bullet1,bullet2,collision;
 
     collision.loadFromFile("collision.png");
 
-    Sprite sprite,sprite1;
+    Sprite sprite,sprite1, background3sprite;
     RectangleShape bulletsprite1(Vector2f(50.0f,50.0f));
     RectangleShape bulletsprite2(Vector2f(50.0f,50.0f));
     bullet1.loadFromFile("bullet/1.png");
     bullet2.loadFromFile("bullet/2.png");
     ex.loadFromFile("an/bk.png");
-    ex1.loadFromFile("an/bk1.png");
+    ex1.loadFromFile("an/background2.png");
+    background3texture.loadFromFile("an/background3.png");
+    background5texture.loadFromFile("an/background5.png");
     sprite.setTexture(ex);
     sprite1.setTexture(ex1);
+    background3sprite.setTexture(background3texture);
 
-    //Enemy texture:
+    //Character death initiation:
+    RectangleShape playerdeathbody(Vector2f(150.0f,150.0f));
+    bool death=false;
+    bool downfalldeath=false;
+    playerdeathtexture[0].loadFromFile("Character/Die_000.png");
+    playerdeathtexture[1].loadFromFile("Character/Die_001.png");
+    playerdeathtexture[2].loadFromFile("Character/Die_002.png");
+    playerdeathtexture[3].loadFromFile("Character/Die_003.png");
+    playerdeathtexture[4].loadFromFile("Character/Die_004.png");
+    playerdeathtexture[5].loadFromFile("Character/Die_005.png");
+    playerdeathtexture[6].loadFromFile("Character/Die_006.png");
+    playerdeathtexture[7].loadFromFile("Character/Die_007.png");
+    playerdeathtexture[8].loadFromFile("Character/Die_008.png");
+    playerdeathtexture[9].loadFromFile("Character/Die_009.png");
+
     playertexture8[0].loadFromFile("enemy/WALK_000.png");
     playertexture8[1].loadFromFile("enemy/WALK_001.png");
     playertexture8[2].loadFromFile("enemy/WALK_002.png");
@@ -762,86 +866,86 @@ int main()
     playertexture8[8].loadFromFile("enemy/WALK_008.png");
 
 
-    playertexture7[0].loadFromFile("1/Slideb__000.png");
-    playertexture7[1].loadFromFile("1/Slideb__001.png");
-    playertexture7[2].loadFromFile("1/Slideb__002.png");
-    playertexture7[3].loadFromFile("1/Slideb__003.png");
-    playertexture7[4].loadFromFile("1/Slideb__004.png");
-    playertexture7[5].loadFromFile("1/Slideb__005.png");
-    playertexture7[6].loadFromFile("1/Slideb__006.png");
-    playertexture7[7].loadFromFile("1/Slideb__007.png");
-    playertexture7[8].loadFromFile("1/Slideb__008.png");
-    playertexture7[9].loadFromFile("1/Slideb__009.png");
+    playertexture7[0].loadFromFile("Character/Slideb_000.png");
+    playertexture7[1].loadFromFile("Character/Slideb_001.png");
+    playertexture7[2].loadFromFile("Character/Slideb_002.png");
+    playertexture7[3].loadFromFile("Character/Slideb_003.png");
+    playertexture7[4].loadFromFile("Character/Slideb_004.png");
+    playertexture7[5].loadFromFile("Character/Slideb_005.png");
+    playertexture7[6].loadFromFile("Character/Slideb_006.png");
+    playertexture7[7].loadFromFile("Character/Slideb_007.png");
+    playertexture7[8].loadFromFile("Character/Slideb_008.png");
+    playertexture7[9].loadFromFile("Character/Slideb_009.png");
 
-    playertexture6[0].loadFromFile("1/Slide__000.png");
-    playertexture6[1].loadFromFile("1/Slide__001.png");
-    playertexture6[2].loadFromFile("1/Slide__002.png");
-    playertexture6[3].loadFromFile("1/Slide__003.png");
-    playertexture6[4].loadFromFile("1/Slide__004.png");
-    playertexture6[5].loadFromFile("1/Slide__005.png");
-    playertexture6[6].loadFromFile("1/Slide__006.png");
-    playertexture6[7].loadFromFile("1/Slide__007.png");
-    playertexture6[8].loadFromFile("1/Slide__008.png");
-    playertexture6[9].loadFromFile("1/Slide__009.png");
+    playertexture6[0].loadFromFile("Character/Slide_000.png");
+    playertexture6[1].loadFromFile("Character/Slide_001.png");
+    playertexture6[2].loadFromFile("Character/Slide_002.png");
+    playertexture6[3].loadFromFile("Character/Slide_003.png");
+    playertexture6[4].loadFromFile("Character/Slide_004.png");
+    playertexture6[5].loadFromFile("Character/Slide_005.png");
+    playertexture6[6].loadFromFile("Character/Slide_006.png");
+    playertexture6[7].loadFromFile("Character/Slide_007.png");
+    playertexture6[8].loadFromFile("Character/Slide_008.png");
+    playertexture6[9].loadFromFile("Character/Slide_009.png");
 
-    playertexture5[0].loadFromFile("1/Jumpb__000.png");
-    playertexture5[1].loadFromFile("1/Jumpb__001.png");
-    playertexture5[2].loadFromFile("1/Jumpb__002.png");
-    playertexture5[3].loadFromFile("1/Jumpb__003.png");
-    playertexture5[4].loadFromFile("1/Jumpb__004.png");
-    playertexture5[5].loadFromFile("1/Jumpb__005.png");
-    playertexture5[6].loadFromFile("1/Jumpb__006.png");
-    playertexture5[7].loadFromFile("1/Jumpb__007.png");
-    playertexture5[8].loadFromFile("1/Jumpb__008.png");
-    playertexture5[9].loadFromFile("1/Jumpb__009.png");
+    playertexture5[0].loadFromFile("Character/Jumpb_000.png");
+    playertexture5[1].loadFromFile("Character/Jumpb_001.png");
+    playertexture5[2].loadFromFile("Character/Jumpb_002.png");
+    playertexture5[3].loadFromFile("Character/Jumpb_003.png");
+    playertexture5[4].loadFromFile("Character/Jumpb_004.png");
+    playertexture5[5].loadFromFile("Character/Jumpb_005.png");
+    playertexture5[6].loadFromFile("Character/Jumpb_006.png");
+    playertexture5[7].loadFromFile("Character/Jumpb_007.png");
+    playertexture5[8].loadFromFile("Character/Jumpb_008.png");
+    playertexture5[9].loadFromFile("Character/Jumpb_009.png");
 
-    playertexture4[0].loadFromFile("1/Jump__000.png");
-    playertexture4[1].loadFromFile("1/Jump__001.png");
-    playertexture4[2].loadFromFile("1/Jump__002.png");
-    playertexture4[3].loadFromFile("1/Jump__003.png");
-    playertexture4[4].loadFromFile("1/Jump__004.png");
-    playertexture4[5].loadFromFile("1/Jump__005.png");
-    playertexture4[6].loadFromFile("1/Jump__006.png");
-    playertexture4[7].loadFromFile("1/Jump__007.png");
-    playertexture4[8].loadFromFile("1/Jump__008.png");
-    playertexture4[9].loadFromFile("1/Jump__009.png");
+    playertexture4[0].loadFromFile("Character/Jump_000.png");
+    playertexture4[1].loadFromFile("Character/Jump_001.png");
+    playertexture4[2].loadFromFile("Character/Jump_002.png");
+    playertexture4[3].loadFromFile("Character/Jump_003.png");
+    playertexture4[4].loadFromFile("Character/Jump_004.png");
+    playertexture4[5].loadFromFile("Character/Jump_005.png");
+    playertexture4[6].loadFromFile("Character/Jump_006.png");
+    playertexture4[7].loadFromFile("Character/Jump_007.png");
+    playertexture4[8].loadFromFile("Character/Jump_008.png");
+    playertexture4[9].loadFromFile("Character/Jump_009.png");
 
-    playertexture3[0].loadFromFile("1/Run__000.png");
-    playertexture3[1].loadFromFile("1/Run__001.png");
-    playertexture3[2].loadFromFile("1/Run__002.png");
-    playertexture3[3].loadFromFile("1/Run__003.png");
-    playertexture3[4].loadFromFile("1/Run__004.png");
-    playertexture3[5].loadFromFile("1/Run__005.png");
-    playertexture3[6].loadFromFile("1/Run__006.png");
-    playertexture3[7].loadFromFile("1/Run__007.png");
-    playertexture3[8].loadFromFile("1/Run__008.png");
-    playertexture3[9].loadFromFile("1/Run__009.png");
+    playertexture3[0].loadFromFile("Character/Run_000.png");
+    playertexture3[1].loadFromFile("Character/Run_001.png");
+    playertexture3[2].loadFromFile("Character/Run_002.png");
+    playertexture3[3].loadFromFile("Character/Run_003.png");
+    playertexture3[4].loadFromFile("Character/Run_004.png");
+    playertexture3[5].loadFromFile("Character/Run_005.png");
+    playertexture3[6].loadFromFile("Character/Run_006.png");
+    playertexture3[7].loadFromFile("Character/Run_007.png");
+    playertexture3[8].loadFromFile("Character/Run_008.png");
+    playertexture3[9].loadFromFile("Character/Run_009.png");
 
-    playertexture2[0].loadFromFile("1/Runb__000.png");
-    playertexture2[1].loadFromFile("1/Runb__001.png");
-    playertexture2[2].loadFromFile("1/Runb__002.png");
-    playertexture2[3].loadFromFile("1/Runb__003.png");
-    playertexture2[4].loadFromFile("1/Runb__004.png");
-    playertexture2[5].loadFromFile("1/Runb__005.png");
-    playertexture2[6].loadFromFile("1/Runb__006.png");
-    playertexture2[7].loadFromFile("1/Runb__007.png");
-    playertexture2[8].loadFromFile("1/Runb__008.png");
-    playertexture2[9].loadFromFile("1/Runb__009.png");
+    playertexture2[0].loadFromFile("Character/Runb_000.png");
+    playertexture2[1].loadFromFile("Character/Runb_001.png");
+    playertexture2[2].loadFromFile("Character/Runb_002.png");
+    playertexture2[3].loadFromFile("Character/Runb_003.png");
+    playertexture2[4].loadFromFile("Character/Runb_004.png");
+    playertexture2[5].loadFromFile("Character/Runb_005.png");
+    playertexture2[6].loadFromFile("Character/Runb_006.png");
+    playertexture2[7].loadFromFile("Character/Runb_007.png");
+    playertexture2[8].loadFromFile("Character/Runb_008.png");
+    playertexture2[9].loadFromFile("Character/Runb_009.png");
 
-    playertexture1[0].loadFromFile("1/Idle__000.png");
-    playertexture1[1].loadFromFile("1/Idle__001.png");
-    playertexture1[2].loadFromFile("1/Idle__002.png");
-    playertexture1[3].loadFromFile("1/Idle__003.png");
-    playertexture1[4].loadFromFile("1/Idle__004.png");
-    playertexture1[5].loadFromFile("1/Idle__005.png");
-    playertexture1[6].loadFromFile("1/Idle__006.png");
-    playertexture1[7].loadFromFile("1/Idle__007.png");
-    playertexture1[8].loadFromFile("1/Idle__008.png");
-    playertexture1[9].loadFromFile("1/Idle__009.png");
+    playertexture1[0].loadFromFile("Character/Idle_000.png");
+    playertexture1[1].loadFromFile("Character/Idle_001.png");
+    playertexture1[2].loadFromFile("Character/Idle_002.png");
+    playertexture1[3].loadFromFile("Character/Idle_003.png");
+    playertexture1[4].loadFromFile("Character/Idle_004.png");
+    playertexture1[5].loadFromFile("Character/Idle_005.png");
+    playertexture1[6].loadFromFile("Character/Idle_006.png");
+    playertexture1[7].loadFromFile("Character/Idle_007.png");
+    playertexture1[8].loadFromFile("Character/Idle_008.png");
+    playertexture1[9].loadFromFile("Character/Idle_009.png");
 
 
     int i=0,pos=0,jump=0,slide=0;
-    double time=0,y=660.0,jumptimer=0.0,slidetimer=0.0,stepcount=0.0,collisiontime=0.0;
+    double time=0,y=810.0,jumptimer=0.0,slidetimer=0.0,stepcount=0.0,collisiontime=0.0;
     bool faceright=true,collisionbool=false;
     Vector2f movement(500.0f,0.0f);
     float deltatime=0.0f;
@@ -887,11 +991,14 @@ int main()
 
         ex.setRepeated(true);
         ex1.setRepeated(true);
+         background3texture.setRepeated(true);
+
 
 
         body.setPosition(300.0f,300.0f);
         sprite.setPosition(0.0f,100.0f);
         sprite1.setPosition(0.0f,0.0f);
+        background3sprite.setPosition(0.0f,240.0f);
 
         float speed=200.0;
         pos=0;
@@ -963,7 +1070,6 @@ int main()
                     stepleftonx=false;
                 }
                     stepony=false;
-                std::cout<<ceil(obstaclelog[j].first)<<endl;
                 }
 
 
@@ -993,12 +1099,12 @@ int main()
         {
             for(int j=0;j<obstacleslide.size();j++)
             {
-                if(ceil(obstacleslide[j].first)==450&&slide==0&&faceright)
+                if((ceil(obstacleslide[j].first)==600||ceil(obstacleslide[j].first)==601||ceil(obstacleslide[j].first)==602)&&slide==0&&faceright)
                 {
 
                     steprightonx=false;
                 }
-                if((ceil(obstacleslide[j].first)==300||ceil(obstacleslide[j].first)==301)&&slide==0&&faceright==false)
+                if((ceil(obstacleslide[j].first)==500||ceil(obstacleslide[j].first)==501||ceil(obstacleslide[j].first)==502)&&slide==0&&faceright==false)
                 {
                     stepleftonx=false;
                 }
@@ -1034,12 +1140,47 @@ int main()
             }
         }
 
+        //River check:
+
+        if(!obstacleriver.empty())
+        {
+            for(int j=0;j<obstacleriver.size();j++)
+            {
+                if(740.0>=obstacleriver[j].first&&760.0<=obstacleriver[j].first+200&&y>=800.0)
+                {
+                    death=true;
+                    downfalldeath=true;
+
+                }
+            }
+        }
+
+        //Hole check:
+
+        if(!obstaclehole.empty())
+        {
+            for(int j=0;j<obstaclehole.size();j++)
+            {
+                if(740.0>=obstaclehole[j].first&&760.0<=obstaclehole[j].first+200&&y>=800.0)
+                {
+                    death=true;
+                    downfalldeath=true;
+
+                }
+            }
+        }
+        if(gameover){cout<<"Gameover"<<endl;}
+        else{cout<<endl;}
+
+
+
+
         //Coin check:
         if(!coin.empty())
         {
             for(int j=0;j<coin.size();j++)
             {
-                if((ceil(coin[j].first)==700)&&(coin[j].second>=y-100.0&&coin[j].second<=y+100.0)&&cointimer[j].second)
+                if((ceil(coin[j].first)>=700&&ceil(coin[j].first)<=800)&&(coin[j].second>=y&&coin[j].second<=y+150.0)&&cointimer[j].second)
                 {
                     coin.erase(coin.begin()+j);
                     cointimer.erase(cointimer.begin()+j);;
@@ -1083,7 +1224,7 @@ int main()
                     {
                         health--;
                     }
-                    else{gameover=true;}
+                    else{death=true;}
 
                 }
             }
@@ -1094,7 +1235,7 @@ int main()
         {
             for(int j=0;j<enemy2.size();j++)
             {
-                if((ceil(enemy2[j].first)==700||ceil(enemy2[j].first)==701||ceil(enemy2[j].first)==702)&&(enemy2[j].second>=y-300.0&&enemy2[j].second<=y+100.0)&&enemy2on[j].second)
+                if((ceil(enemy2[j].first)==700||ceil(enemy2[j].first)==701||ceil(enemy2[j].first)==702)&&(enemy2[j].second>=y-100.0&&enemy2[j].second<=y+100.0)&&enemy2on[j].second)
                 {
                     collisionbody.setPosition(enemy2[j].first,enemy2[j].second);
                 collisionbool=true;
@@ -1110,7 +1251,7 @@ int main()
                     {
                         health--;
                     }
-                    else{gameover=true;}
+                    else{death=true;}
 
                 }
             }
@@ -1120,7 +1261,7 @@ int main()
         {
             for(int j=0;j<enemy4.size();j++)
             {
-                if((ceil(enemy4[j].first)==700||ceil(enemy4[j].first)==701||ceil(enemy4[j].first)==702)&&(enemy4[j].second>=y-300.0&&enemy4[j].second<=y+100.0)&&enemy4on[j].second)
+                if((ceil(enemy4[j].first)==700||ceil(enemy4[j].first)==701||ceil(enemy4[j].first)==702)&&(enemy4[j].second>=y-100.0&&enemy4[j].second<=y+100.0)&&enemy4on[j].second)
                 {
                     collisionbody.setPosition(enemy4[j].first,enemy4[j].second);
                 collisionbool=true;
@@ -1136,7 +1277,7 @@ int main()
                     {
                         health--;
                     }
-                    else{gameover=true;}
+                    else{death=true;}
 
                 }
             }
@@ -1146,7 +1287,7 @@ int main()
         {
             for(int j=0;j<enemy4venom.size();j++)
             {
-                if(enemy4venom[j].first>=700&&enemy4venom[j].first<=800&&enemy4venom[j].second>=y&&enemy4venom[j].first<=y+100)
+                if(enemy4venom[j].first>=700&&enemy4venom[j].first<=800&&enemy4venom[j].second>=y&&enemy4venom[j].second<=y+100)
                 {
                     collisionbody.setPosition(enemy4venom[j].first,enemy4venom[j].second);
                 collisionbool=true;
@@ -1162,7 +1303,7 @@ int main()
                     {
                         health--;
                     }
-                    else{gameover=true;}
+                    else{death=true;}
 
                 }
             }
@@ -1172,7 +1313,7 @@ int main()
         {
             for(int j=0;j<enemy1venom.size();j++)
             {
-                if(enemy1venom[j].first>=700&&enemy1venom[j].first<=750&&enemy1venom[j].second>=y&&enemy1venom[j].first<=y+100)
+                if(enemy1venom[j].first>=700&&enemy1venom[j].first<=800&&enemy1venom[j].second>=y&&enemy1venom[j].second<=y+100)
                 {
                     collisionbody.setPosition(enemy1venom[j].first,enemy1venom[j].second);
                 collisionbool=true;
@@ -1188,7 +1329,7 @@ int main()
                     {
                         health--;
                     }
-                    else{gameover=true;}
+                    else{death=true;}
 
                 }
             }
@@ -1199,7 +1340,7 @@ int main()
         {
             for(int j=0;j<enemybossshoot.size();j++)
             {
-                if(enemybossshoot[j].first>=700&&enemybossshoot[j].first<=750&&enemybossshoot[j].second>=y&&enemybossshoot[j].first<=y+100)
+                if(enemybossshoot[j].first>=700&&enemybossshoot[j].first<=800&&enemybossshoot[j].second>=y&&enemybossshoot[j].second<=y+100)
                 {
                     collisionbody.setPosition(enemybossshoot[j].first,enemybossshoot[j].second);
                 collisionbool=true;
@@ -1215,7 +1356,7 @@ int main()
                     {
                         health--;
                     }
-                    else{gameover=true;}
+                    else{death=true;}
 
                 }
             }
@@ -1226,7 +1367,6 @@ int main()
         if((ceil(enemybossxy.first)==750||ceil(enemybossxy.first)==751||ceil(enemybossxy.first)==752)&&faceright)
             {
                 steprightonx=false;
-                cout<<ceil(enemybossxy.first)<<endl;
 
         }
 
@@ -1241,7 +1381,7 @@ int main()
         {
             for(int k=0;k<enemy.size();k++)
             {
-                if((bullet[j].first>=enemy[k].first-10&&bullet[j].first<=enemy[k].first+10)&&(bullet[j].second>=650.0&&bullet[j].second<=730.0)&&enemyon[k].second)
+                if((bullet[j].first>=enemy[k].first-10&&bullet[j].first<=enemy[k].first+10)&&(bullet[j].second>=800.0&&bullet[j].second<=880.0)&&enemyon[k].second)
                    {
                 collisionbody.setPosition(bullet[j].first,bullet[j].second);
                 collisionbool=true;
@@ -1255,7 +1395,7 @@ int main()
             }
             for(int k=0;k<enemy2.size();k++)
             {
-                if((bullet[j].first>=enemy2[k].first-10&&bullet[j].first<=enemy2[k].first+10)&&(bullet[j].second>=650.0&&bullet[j].second<=730.0)&&enemy2on[k].second)
+                if((bullet[j].first>=enemy2[k].first-10&&bullet[j].first<=enemy2[k].first+10)&&(bullet[j].second>=800.0&&bullet[j].second<=880.0)&&enemy2on[k].second)
                    {
                 collisionbody.setPosition(bullet[j].first,bullet[j].second);
                 collisionbool=true;
@@ -1270,7 +1410,7 @@ int main()
 
             for(int k=0;k<enemy4.size();k++)
             {
-                if((bullet[j].first>=enemy4[k].first-10&&bullet[j].first<=enemy4[k].first+10)&&(bullet[j].second>=650.0&&bullet[j].second<=730.0)&&enemy4on[k].second)
+                if((bullet[j].first>=enemy4[k].first-10&&bullet[j].first<=enemy4[k].first+10)&&(bullet[j].second>=800.0&&bullet[j].second<=880.0)&&enemy4on[k].second)
                    {
                 collisionbody.setPosition(bullet[j].first,bullet[j].second);
                 collisionbool=true;
@@ -1283,7 +1423,7 @@ int main()
                    }
             }
 
-            if((bullet[j].first>=enemybossxy.first-10&&bullet[j].first<=enemybossxy.first+10)&&(bullet[j].second>=500.0&&bullet[j].second<=730.0)&&enemybosson.second)
+            if((bullet[j].first>=enemybossxy.first&&bullet[j].first<=enemybossxy.first+10)&&(bullet[j].second>=650.0&&bullet[j].second<=880.0)&&enemybosson.second)
                    {
                 collisionbody.setPosition(bullet[j].first,bullet[j].second);
                 collisionbool=true;
@@ -1292,7 +1432,7 @@ int main()
                     bullet.erase(bullet.begin()+j);
                 bulletface.erase(bulletface.begin()+j);
 
-                if(enemybosshealth>=0){enemybosshealth-=deltatime*200;}
+                if(enemybosshealth>=0){enemybosshealth-=deltatime*500;}
                 else{bossalive=false;}
 
                    }
@@ -1330,9 +1470,12 @@ int main()
 
          sprite.setTextureRect(IntRect(movement.x,0,1500+movement.x,1000));
          sprite1.setTextureRect(IntRect(movement.x,0,1500+movement.x,1000));
+         background3sprite.setTextureRect(IntRect(movement.x,0,1500+movement.x,1000));
 
          bulletsprite1.setTexture(&bullet1);
          bulletsprite2.setTexture(&bullet2);
+
+         background3sprite.setTexture(background3texture);
 
 
 
@@ -1347,14 +1490,14 @@ int main()
                     jumptimer=0.0;
             }
         }
-        if(y<660.0&&stepony&&jump==0){y+=deltatime*(speed+100);}
-        if(y>660.0){y=660.0;}
+        if(y<810.0&&stepony&&jump==0){y+=deltatime*(speed+100);}
+        if(y>810.0&&downfalldeath==false){y=810.0;}
         if(slide)
         {slidetimer-=deltatime;
 
             if(slidetimer<=0.0)
                 {
-                    y=660.0;
+                    y=810.0;
                     slide=0;
                     slidetimer=0.0;
             }
@@ -1371,6 +1514,14 @@ int main()
         //std::cout<<time<<" "<<stepcount<<std::endl;
 
 
+        //Player death update:
+        if(death)
+        {
+            if(downfalldeath){y+=deltatime*speed;}
+            playerdeathbody.setPosition(700.0,y);
+            playerdeathbody.setTexture(&playerdeathtexture[i]);
+            if(y>=1000.0){gameover=true;}
+        }
 
         //Obstacle update:
 
@@ -1379,7 +1530,7 @@ int main()
         {
             for(int j=0;j<obstaclelog.size();j++)
             {
-                if(stepcount>=obstaclelogtimer[j].first&&stepcount<=obstaclelogtimer[j].first+10.0)
+                if(stepcount>=obstaclelogtimer[j].first&&stepcount<=obstaclelogtimer[j].first+12.0)
                     {
                         obstaclelogtimer[j].second=true;
                         obstaclebody.setTexture(&obstacletexture[0]);
@@ -1410,7 +1561,7 @@ int main()
         {
             for(int j=0;j<obstaclestair.size();j++)
             {
-                if(stepcount>=obstaclestairtimer[j].first&&stepcount<=obstaclestairtimer[j].first+10.0){obstaclestairtimer[j].second=true;}
+                if(stepcount>=obstaclestairtimer[j].first&&stepcount<=obstaclestairtimer[j].first+12.0){obstaclestairtimer[j].second=true;}
                 else{obstaclestairtimer[j].second=false;}
                 if(obstaclestairtimer[j].second)
                 {
@@ -1435,7 +1586,7 @@ int main()
         {
             for(int j=0;j<obstacleslide.size();j++)
             {
-                if(stepcount>=obstacleslidetimer[j].first&&stepcount<=obstacleslidetimer[j].first+10.0){obstacleslidetimer[j].second=true;}
+                if(stepcount>=obstacleslidetimer[j].first&&stepcount<=obstacleslidetimer[j].first+12.0){obstacleslidetimer[j].second=true;}
                 else{obstacleslidetimer[j].second=false;}
                 if(obstacleslidetimer[j].second)
                 {
@@ -1459,7 +1610,7 @@ int main()
         {
             for(int j=0;j<obstaclerock.size();j++)
             {
-                if(stepcount>=obstaclerocktimer[j].first&&stepcount<=obstaclerocktimer[j].first+10.0)
+                if(stepcount>=obstaclerocktimer[j].first&&stepcount<=obstaclerocktimer[j].first+12.0)
                     {
                         obstaclerocktimer[j].second=true;
                         obstaclerockbody.setTexture(&obstacletexture[3]);
@@ -1488,7 +1639,7 @@ int main()
         {
             for(int j=0;j<obstacleriver.size();j++)
             {
-                if(stepcount>=obstaclerivertimer[j].first&&stepcount<=obstaclerivertimer[j].first+10.0)
+                if(stepcount>=obstaclerivertimer[j].first&&stepcount<=obstaclerivertimer[j].first+12.0)
                     {
                         obstaclerivertimer[j].second=true;
                         obstacleriverbody.setTexture(&obstacletexture[4]);
@@ -1518,7 +1669,7 @@ int main()
         {
             for(int j=0;j<obstaclehole.size();j++)
             {
-                if(stepcount>=obstacleholetimer[j].first&&stepcount<=obstacleholetimer[j].first+10.0)
+                if(stepcount>=obstacleholetimer[j].first&&stepcount<=obstacleholetimer[j].first+12.0)
                     {
                         obstacleholetimer[j].second=true;
                         obstacleholebody.setTexture(&obstacletexture[5]);
@@ -1555,7 +1706,7 @@ int main()
 
 
         //health update:
-        if(stepcount>=0.0&&stepcount<=1000.0)
+        if(stepcount>=86.0&&stepcount<=1000.0)
         {
 
             if(healthontimer>0.0)
@@ -1568,12 +1719,12 @@ int main()
                 healthon=false;
                 healthofftimer-=deltatime;
                 healthx=50.0+rand()%1450;
-                healthy=500.0+rand()%200;
+                healthy=650.0+rand()%200;
             }
             else
             {
-                healthontimer=3.0;
-                healthofftimer=3.0;
+                healthontimer=5.0;
+                healthofftimer=5.0;
             }
             healthbody.setTexture(&healthtexture);
             healthbody.setPosition(healthx,healthy);
@@ -1592,7 +1743,7 @@ int main()
                     }
 
         //Shield update:
-        if(stepcount>=0.0&&stepcount<=1500.0)
+        if(stepcount>=86.0&&stepcount<=1500.0)
         {
 
             if(shieldontimer>0.0)
@@ -1606,7 +1757,7 @@ int main()
                 shieldon=false;
                 shieldofftimer-=deltatime;
                 shieldx=50.0+rand()%1450;
-                shieldy=500.0+rand()%200;
+                shieldy=650.0+rand()%200;
             }
             else
             {
@@ -1637,7 +1788,7 @@ int main()
         {
             for(int j=0;j<coin.size();j++)
             {
-                if(stepcount>=cointimer[j].first&&stepcount<=cointimer[j].first+10.0)
+                if(stepcount>=cointimer[j].first&&stepcount<=cointimer[j].first+12.0)
                     {
                         cointimer[j].second=true;
                         coinbody.setTexture(&cointexture[i]);
@@ -1647,20 +1798,21 @@ int main()
                 if(cointimer[j].second)
                 {
 
-                    if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx)
+                    if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx&&cointimer[j].first!=0.0)
                     {
                         coin[j].first-=deltatime*speed;
 
                     }
-                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx)
+                    if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx&&cointimer[j].first!=0.0)
                     {
                         coin[j].first+=deltatime*speed;
 
                     }
                 }
-
+            if(cointimer[j].first==0.0){cointimer[j].second=true;}
             }
         }
+
 
         //enemy 1 venom update:
 
@@ -1712,19 +1864,18 @@ int main()
 
         //Cave update:
 
-        if(stepcount>=1.0)
+        if(stepcount>=caveon.first)
             {
                 caveon.second=true;
             }
             if(caveon.second)
             {
-            if(Keyboard::isKeyPressed(Keyboard::D)){cave.first-=deltatime*speed;}
-            else if(Keyboard::isKeyPressed(Keyboard::A)){cave.first+=deltatime*speed;}
+            if(Keyboard::isKeyPressed(Keyboard::D)&&steprightonx){cave.first-=deltatime*speed;}
+            else if(Keyboard::isKeyPressed(Keyboard::A)&&stepleftonx){cave.first+=deltatime*speed;}
             cavebody.setTexture(&cavetexture);
             cavebody.setPosition(cave.first,cave.second);
-
             }
-            if(stepcount>=puzzleon.first)
+            if(stepcount>=puzzleon.first&&bossalive==false)
             {
                 puzzleon.second=true;
             }
@@ -1736,19 +1887,19 @@ int main()
             puzzlebody.setTexture(&puzzletexture);
 
 
-            if ( mouseclick&&Mouse::getPosition(window).x >=puzzlea.first && Mouse::getPosition(window).x <= puzzlea.first + 300.0 &&  Mouse::getPosition(window).y > puzzlea.second &&  Mouse::getPosition(window).y <= puzzlea.second + 300.0)
+            if ( mouseclick&&Mouse::getPosition(window).x >=puzzlea.first && Mouse::getPosition(window).x <= puzzlea.first + 300.0 &&  Mouse::getPosition(window).y > puzzlea.second &&  Mouse::getPosition(window).y <= puzzlea.second + 300.0&&puzzleon.second)
             {
                 cout<<"a"<<endl;
                 a++;
 
             }
-            else if ( mouseclick&&Mouse::getPosition(window).x >=puzzleb.first && Mouse::getPosition(window).x <= puzzleb.first + 300.0 &&  Mouse::getPosition(window).y > puzzleb.second &&  Mouse::getPosition(window).y <= puzzleb.second + 300.0)
+            else if ( mouseclick&&Mouse::getPosition(window).x >=puzzleb.first && Mouse::getPosition(window).x <= puzzleb.first + 300.0 &&  Mouse::getPosition(window).y > puzzleb.second &&  Mouse::getPosition(window).y <= puzzleb.second + 300.0&&puzzleon.second)
             {
                 cout<<"b"<<endl;
                 b++;
 
             }
-            else if ( mouseclick&&Mouse::getPosition(window).x >=puzzlec.first && Mouse::getPosition(window).x <= puzzlec.first + 300.0 &&  Mouse::getPosition(window).y > puzzlec.second &&  Mouse::getPosition(window).y <= puzzlec.second + 300.0)
+            else if ( mouseclick&&Mouse::getPosition(window).x >=puzzlec.first && Mouse::getPosition(window).x <= puzzlec.first + 300.0 &&  Mouse::getPosition(window).y > puzzlec.second &&  Mouse::getPosition(window).y <= puzzlec.second + 300.0&&puzzleon.second)
             {
                 cout<<"c"<<endl;
                 c++;
@@ -1774,14 +1925,132 @@ int main()
             mouseclick=false;
 
 
+            if(puzzlesolved)
+            {
+                puzzleon.second=false;
+                caveon.second=false;
+                infinitystoneon=true;
+                infinitystonebody.setTexture(&infinitystonetexture);
+                infinitystonebody.setPosition(cave.first,cave.second);
+            }
+            if(puzzlesolved&&cave.first<=500){gamewin=true;}
+
+            //Text update:
+            font.loadFromFile("font/Berlin Sans FB Demi Bold.ttf");
+            text.setFont(font);
+            text.setFillColor(Color::Blue);
+            stringstream ss;
+            ss<< count1 << count2 << count3 <<count4 << endl;
+            text.setString(ss.str());
+
+            text.setCharacterSize(50);
+            text.setPosition(1000,455);
 
 
         window.setFramerateLimit(120);
 
 
         window.clear(Color:: White);
-    window.draw(sprite1);
+
+        //if(stepcount>=0.0){background3sprite.setTexture(&background5texture);}
+
+        window.draw(sprite1);
+        if(stepcount>=100.0){window.draw(background3sprite);}
+        sprite.setPosition(0.0f,250.0f);
         window.draw(sprite);
+
+
+        //Obstacle draw:
+
+        //river:
+         if(!obstacleriver.empty())
+        {
+            for(int j=0;j<obstacleriver.size();j++)
+            {
+
+                if(obstaclerivertimer[j].second)
+                {   obstacleriverbody.setPosition(obstacleriver[j].first,obstacleriver[j].second);
+                    window.draw(obstacleriverbody);
+                }
+
+            }
+        }
+        //hole:
+         if(!obstaclehole.empty())
+        {
+            for(int j=0;j<obstaclehole.size();j++)
+            {
+
+                if(obstacleholetimer[j].second)
+                {   obstacleholebody.setPosition(obstaclehole[j].first,obstaclehole[j].second);
+                    window.draw(obstacleholebody);
+                }
+
+            }
+        }
+
+        //Log:
+
+        if(!obstaclelog.empty())
+        {
+            for(int j=0;j<obstaclelog.size();j++)
+            {
+
+                if(obstaclelogtimer[j].second)
+                {   obstaclebody.setPosition(obstaclelog[j].first,obstaclelog[j].second);
+                    window.draw(obstaclebody);
+                }
+
+            }
+        }
+        //Stair:
+        if(!obstaclestair.empty())
+        {
+            for(int j=0;j<obstaclestair.size();j++)
+            {   obstaclebodystair.setTexture(&obstacletexture[1]);
+
+                if(obstaclestairtimer[j].second)
+                {   obstaclebodystair.setPosition(obstaclestair[j].first,obstaclestair[j].second);
+                    window.draw(obstaclebodystair);
+                }
+
+            }
+        }
+
+
+
+
+        //Slide:
+        if(!obstacleslide.empty())
+        {
+            for(int j=0;j<obstacleslide.size();j++)
+            {   obstacleslidebody.setTexture(&obstacletexture[2]);
+
+                if(obstacleslidetimer[j].second)
+                {   obstacleslidebody.setPosition(obstacleslide[j].first,obstacleslide[j].second);
+                    window.draw(obstacleslidebody);
+                }
+
+            }
+        }
+        //Rock:
+
+        if(!obstaclerock.empty())
+        {
+            for(int j=0;j<obstaclerock.size();j++)
+            {
+
+                if(obstaclerocktimer[j].second)
+                {   obstaclerockbody.setPosition(obstaclerock[j].first,obstaclerock[j].second);
+                    window.draw(obstaclerockbody);
+                }
+
+            }
+        }
+
+        //Bullet draw:
+
+
         if(!bullet.empty())
         {
             for(int j=0;j<bullet.size();j++)
@@ -1789,7 +2058,7 @@ int main()
                 if(bulletface[j])bullet[j].first+=deltatime*(speed+50);
                 else bullet[j].first-=deltatime*speed;
                 if(bulletface[j])
-                    {
+                {
                         if(Keyboard::isKeyPressed(Keyboard::D)){bullet[j].first+=deltatime;}
                         else if(Keyboard::isKeyPressed(Keyboard::A)){bullet[j].first+=deltatime*speed;}
                 }
@@ -1799,7 +2068,7 @@ int main()
                         else if(Keyboard::isKeyPressed(Keyboard::A)){bullet[j].first-=deltatime;}
 
                 }
-                if(bullet[j].first>=1500.0&&bullet[j].first>=0.0){continue;}
+                if(bullet[j].first>=2000.0&&bullet[j].first>=0.0){continue;}
 
                 if(bulletface[j])
                     {
@@ -2008,95 +2277,18 @@ int main()
 
             }
         }
+        if(caveon.second){window.draw(cavebody);}
+        if(puzzleon.second){window.draw(puzzlebody);}
+        if(puzzleon.second){window.draw(puzzleabody);}
+        if(puzzleon.second){window.draw(puzzlebbody);}
+        if(puzzleon.second){window.draw(puzzlecbody);}
+        if(infinitystoneon){window.draw(infinitystonebody);}
 
 
-        //Obstacle draw:
-
-        //Log:
-
-        if(!obstaclelog.empty())
-        {
-            for(int j=0;j<obstaclelog.size();j++)
-            {
-
-                if(obstaclelogtimer[j].second)
-                {   obstaclebody.setPosition(obstaclelog[j].first,obstaclelog[j].second);
-                    window.draw(obstaclebody);
-                }
-
-            }
-        }
-        //Stair:
-        if(!obstaclestair.empty())
-        {
-            for(int j=0;j<obstaclestair.size();j++)
-            {   obstaclebodystair.setTexture(&obstacletexture[1]);
-
-                if(obstaclestairtimer[j].second)
-                {   obstaclebodystair.setPosition(obstaclestair[j].first,obstaclestair[j].second);
-                    window.draw(obstaclebodystair);
-                }
-
-            }
-        }
 
 
-        //river:
-         if(!obstacleriver.empty())
-        {
-            for(int j=0;j<obstacleriver.size();j++)
-            {
-
-                if(obstaclerivertimer[j].second)
-                {   obstacleriverbody.setPosition(obstacleriver[j].first,obstacleriver[j].second);
-                    window.draw(obstacleriverbody);
-                }
-
-            }
-        }
-        //hole:
-         if(!obstaclehole.empty())
-        {
-            for(int j=0;j<obstaclehole.size();j++)
-            {
-
-                if(obstacleholetimer[j].second)
-                {   obstacleholebody.setPosition(obstaclehole[j].first,obstaclehole[j].second);
-                    window.draw(obstacleholebody);
-                }
-
-            }
-        }
-
-        //Slide:
-        if(!obstacleslide.empty())
-        {
-            for(int j=0;j<obstacleslide.size();j++)
-            {   obstacleslidebody.setTexture(&obstacletexture[2]);
-
-                if(obstacleslidetimer[j].second)
-                {   obstacleslidebody.setPosition(obstacleslide[j].first,obstacleslide[j].second);
-                    window.draw(obstacleslidebody);
-                }
-
-            }
-        }
-        //Rock:
-
-        if(!obstaclerock.empty())
-        {
-            for(int j=0;j<obstaclerock.size();j++)
-            {
-
-                if(obstaclerocktimer[j].second)
-                {   obstaclerockbody.setPosition(obstaclerock[j].first,obstaclerock[j].second);
-                    window.draw(obstaclerockbody);
-                }
-
-            }
-        }
-
-        if(pos==0&&jump==0)window.draw(body0);
+        if(death){window.draw(playerdeathbody);}
+        else if(pos==0&&jump==0)window.draw(body0);
         else if(pos==1&&jump==0&&slide==0)window.draw(body1);
         else if(pos==2&&jump==0&&slide==0)window.draw(body2);
         else if(pos==3&&jump!=0&&slide==0)window.draw(body3);
@@ -2129,19 +2321,19 @@ int main()
         //coin count:
 
         coincountbody.setTexture(&coincounttexture[count1]);
-        coincountbody.setPosition(600.0,10.0);
+        coincountbody.setPosition(1000.0,30.0);
         window.draw(coincountbody);
 
         coincountbody.setTexture(&coincounttexture[count2]);
-        coincountbody.setPosition(650.0,10.0);
+        coincountbody.setPosition(1050.0,30.0);
         window.draw(coincountbody);
 
         coincountbody.setTexture(&coincounttexture[count3]);
-        coincountbody.setPosition(700.0,10.0);
+        coincountbody.setPosition(1100.0,30.0);
         window.draw(coincountbody);
 
         coincountbody.setTexture(&coincounttexture[count4]);
-        coincountbody.setPosition(750.0,10.0);
+        coincountbody.setPosition(1150.0,30.0);
         window.draw(coincountbody);
 
         //Health:
@@ -2157,12 +2349,22 @@ int main()
             window.draw(shieldbody);
         }
 
-        if(caveon.second){window.draw(cavebody);}
-        if(puzzleon.second){window.draw(puzzlebody);}
-        if(puzzleon.second){window.draw(puzzleabody);}
-        if(puzzleon.second){window.draw(puzzlebbody);}
-        if(puzzleon.second){window.draw(puzzlecbody);}
+        if(gameover)
+        {
+            gameoverbody.setTexture(&gameovertexture);
+            gameoverbody.setPosition(0.0,0.0);
+            window.draw(gameoverbody);
+        }
+        if(gamewin)
+        {
+            gamewinbody.setTexture(&gamewintexture);
+            gamewinbody.setPosition(0.0,0.0);
+            window.draw(gamewinbody);
+        }
 
+
+        if(gameover)window.draw(text);
+        if(gamewin)window.draw(text);
 
 
 

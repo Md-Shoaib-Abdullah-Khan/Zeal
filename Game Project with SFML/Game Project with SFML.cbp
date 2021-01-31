@@ -48,6 +48,8 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
+		<Unit filename="playmode.cpp" />
+		<Unit filename="playmode.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
